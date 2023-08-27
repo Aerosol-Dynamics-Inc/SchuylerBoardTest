@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "ADC_uC.h"
+#include <avr/pgmspace.h>#include "ADC_uC.h"
 #include "ADC2518.h"
 #include "Globals.h"
 #include "EnablesAndCSs.h"
@@ -43,6 +43,9 @@ uint8_t i=1;
 	RS,RR   -- RH_T start conversion and Read
  */
 
+void doFlashWriteTest(void);
+void doFlashReadTest(void);
+void doFlashEraseTest(void);
 
 void processCommand(void)
 {
@@ -80,7 +83,10 @@ void processCommand(void)
 		}
 		else if (buf[0] == 'F') {		
 			spi_FlashReadID();
-/*			if (  buf[1] == 's' )       getFlashStatusReister();
+			if (  buf[1] == 'w' ) doFlashWriteTest();
+			else if (  buf[1] == 'r' ) doFlashReadTest();
+			else if (  buf[1] == 'e' ) doFlashEraseTest();
+/*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
 */			
@@ -115,3 +121,57 @@ void processCommand(void)
 				
 }
 
+#define WRITE_TEST_SIZE 200
+#define NUM_WRITES 10
+
+void doFlashWriteTest(void)
+{
+	char* testChars = "0123456789";
+	char buffer[WRITE_TEST_SIZE];
+	uint8_t* buff = (uint8_t*) &buffer;
+	uint32_t address = 0;
+	
+	for (uint8_t i = 0; i < NUM_WRITES; i++)
+	{
+		for (uint8_t j = 0; j < WRITE_TEST_SIZE; j++)
+			buffer[j] = testChars[i];
+		if (spi_FlashWrite(address, buff, WRITE_TEST_SIZE) != WRITE_TEST_SIZE)
+		{
+			printf_P(PSTR("FLASH write failed\n"));
+		}
+		address += WRITE_TEST_SIZE;
+	}
+	
+}
+
+void doFlashReadTest(void)
+{
+	char buffer[WRITE_TEST_SIZE+1];
+	uint8_t* buff = (uint8_t*) &buffer;
+	uint32_t address = 0;
+
+	printf("\nReading from FLASH\n");
+	
+	for (uint8_t i = 0; i < NUM_WRITES; i++)
+	{
+		for (uint8_t j = 0; j < WRITE_TEST_SIZE; j++) buffer[j] = (char) 0;
+		printf("record %d:\n", i);
+		if (spi_FlashRead(address, buff, WRITE_TEST_SIZE) != WRITE_TEST_SIZE)
+		{
+			printf_P(PSTR("FLASH read failed\n"));
+		}
+		else
+		{
+			buffer[WRITE_TEST_SIZE] = '\0';
+			printf("%s\n",buffer);
+		}
+		address += WRITE_TEST_SIZE;
+	}
+	
+}
+
+void doFlashEraseTest(void)
+{
+	spi_FlashEraseAllBlocks();
+	
+}

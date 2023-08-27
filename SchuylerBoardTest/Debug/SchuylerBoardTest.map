@@ -24,6 +24,8 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
                               c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(mulsf3.o) (__fp_round)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libprintf_flt.a(vfprintf_flt.o)
                               (vfprintf)
+c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+                              Drivers/FLASH_Driver.o (__udivmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o)
                               Drivers/RH_T.o (__divmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_negsi2.o)
@@ -38,8 +40,6 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
                               Drivers/ADC2518.o (__umulhisi3)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_usmulhisi3.o)
                               Drivers/RH_T.o (__usmulhisi3)
-c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
-                              c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o) (__udivmodsi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(atoi.o)
                               Commands/testCommand1.o (atoi)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(ftoa_engine.o)
@@ -59,7 +59,7 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(printf.o)
                               Commands/testCommand1.o (printf)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(printf_p.o)
-                              Drivers/ADC2518.o (printf_P)
+                              Commands/testCommand1.o (printf_P)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(putchar.o)
                               Drivers/ADC_uC.o (putchar)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(puts.o)
@@ -164,6 +164,8 @@ Discarded input sections
  .text          0x00000000        0x0 Drivers/FLASH_Driver.o
  .data          0x00000000        0x0 Drivers/FLASH_Driver.o
  .bss           0x00000000        0x0 Drivers/FLASH_Driver.o
+ .text.spi_FlashDelay
+                0x00000000       0x34 Drivers/FLASH_Driver.o
  .text          0x00000000        0x0 Drivers/RTC.o
  .data          0x00000000        0x0 Drivers/RTC.o
  .bss           0x00000000        0x0 Drivers/RTC.o
@@ -276,6 +278,20 @@ Discarded input sections
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libprintf_flt.a(vfprintf_flt.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libprintf_flt.a(vfprintf_flt.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libprintf_flt.a(vfprintf_flt.o)
+ .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.mul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.prologue
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.builtins
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fmul
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+ .text.libgcc.fixed
+                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o)
@@ -380,20 +396,6 @@ Discarded input sections
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_usmulhisi3.o)
  .text.libgcc.fixed
                 0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_usmulhisi3.o)
- .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.mul
-                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .text.libgcc   0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.prologue
-                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.builtins
-                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.fmul
-                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
- .text.libgcc.fixed
-                0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(atoi.o)
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(atoi.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(atoi.o)
@@ -653,7 +655,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x2d82
+.text           0x00000000     0x38f4
  *(.vectors)
  .vectors       0x00000000       0xe4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
                 0x00000000                __vector_default
@@ -671,52 +673,98 @@ END GROUP
  *libc.a:*(.progmem.data)
  .progmem.data  0x000000ec       0xfa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(ftoa_engine.o)
  *(.progmem*)
+ .progmem.data.__c.2491
+                0x000001e6       0x13 Commands/testCommand1.o
+ .progmem.data.__c.2475
+                0x000001f9       0x14 Commands/testCommand1.o
  .progmem.data.__c.2046
-                0x000001e6       0x20 Drivers/ADC2518.o
+                0x0000020d       0x20 Drivers/ADC2518.o
  .progmem.data.__c.2037
-                0x00000206       0x15 Drivers/ADC2518.o
+                0x0000022d       0x15 Drivers/ADC2518.o
  .progmem.data.__c.2082
-                0x0000021b        0x2 Drivers/ADC_uC.o
+                0x00000242        0x2 Drivers/ADC_uC.o
  .progmem.data.__c.2077
-                0x0000021d        0x4 Drivers/ADC_uC.o
+                0x00000244        0x4 Drivers/ADC_uC.o
  .progmem.data.__c.2071
-                0x00000221       0x1f Drivers/ADC_uC.o
+                0x00000248       0x1f Drivers/ADC_uC.o
  .progmem.data.__c.2042
-                0x00000240       0x23 Drivers/NPA700.o
+                0x00000267       0x23 Drivers/NPA700.o
  .progmem.data.__c.2040
-                0x00000263       0x1c Drivers/NPA700.o
+                0x0000028a       0x1c Drivers/NPA700.o
  .progmem.data.__c.2038
-                0x0000027f       0x20 Drivers/NPA700.o
-                0x000002a0                . = ALIGN (0x2)
- *fill*         0x0000029f        0x1 
+                0x000002a6       0x20 Drivers/NPA700.o
+ .progmem.data.__c.2180
+                0x000002c6       0x34 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2178
+                0x000002fa       0x12 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2170
+                0x0000030c       0x37 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2168
+                0x00000343       0x28 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2166
+                0x0000036b       0x2f Drivers/FLASH_Driver.o
+ .progmem.data.__c.2164
+                0x0000039a       0x3a Drivers/FLASH_Driver.o
+ .progmem.data.__c.2162
+                0x000003d4       0x2b Drivers/FLASH_Driver.o
+ .progmem.data.__c.2155
+                0x000003ff       0x25 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2153
+                0x00000424       0x25 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2141
+                0x00000449       0x35 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2139
+                0x0000047e       0x2a Drivers/FLASH_Driver.o
+ .progmem.data.__c.2137
+                0x000004a8       0x3a Drivers/FLASH_Driver.o
+ .progmem.data.__c.2122
+                0x000004e2       0x27 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2120
+                0x00000509       0x27 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2108
+                0x00000530       0x34 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2106
+                0x00000564       0x29 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2104
+                0x0000058d       0x39 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2102
+                0x000005c6       0x30 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2100
+                0x000005f6       0x39 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2098
+                0x0000062f       0x39 Drivers/FLASH_Driver.o
+ .progmem.data.__c.2096
+                0x00000668       0x31 Drivers/FLASH_Driver.o
+                0x0000069a                . = ALIGN (0x2)
+ *fill*         0x00000699        0x1 
  *(.jumptables)
  *(.jumptables*)
  *(.lowtext)
  *(.lowtext*)
-                0x000002a0                __ctors_start = .
+                0x0000069a                __ctors_start = .
  *(.ctors)
-                0x000002a0                __ctors_end = .
-                0x000002a0                __dtors_start = .
+                0x0000069a                __ctors_end = .
+                0x0000069a                __dtors_start = .
  *(.dtors)
-                0x000002a0                __dtors_end = .
+                0x0000069a                __dtors_end = .
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x000002a0        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
-                0x000002a0                __init
+ .init0         0x0000069a        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
+                0x0000069a                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x000002a0       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .init2         0x0000069a       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
  *(.init2)
  *(.init3)
  *(.init3)
  *(.init4)
- .init4         0x000002b0       0x1a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
-                0x000002b0                __do_copy_data
- .init4         0x000002ca       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
-                0x000002ca                __do_clear_bss
+ .init4         0x000006aa       0x1a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_copy_data.o)
+                0x000006aa                __do_copy_data
+ .init4         0x000006c4       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_clear_bss.o)
+                0x000006c4                __do_clear_bss
  *(.init4)
  *(.init5)
  *(.init5)
@@ -727,443 +775,491 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x000002da        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
+ .init9         0x000006d4        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
  *(.init9)
  *(.text)
- .text          0x000002e2        0x2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
-                0x000002e2                __vector_38
-                0x000002e2                __vector_22
-                0x000002e2                __vector_28
-                0x000002e2                __vector_1
-                0x000002e2                __vector_32
-                0x000002e2                __vector_34
-                0x000002e2                __vector_24
-                0x000002e2                __vector_12
-                0x000002e2                __vector_55
-                0x000002e2                __vector_46
-                0x000002e2                __bad_interrupt
-                0x000002e2                __vector_6
-                0x000002e2                __vector_31
-                0x000002e2                __vector_35
-                0x000002e2                __vector_39
-                0x000002e2                __vector_3
-                0x000002e2                __vector_23
-                0x000002e2                __vector_30
-                0x000002e2                __vector_45
-                0x000002e2                __vector_11
-                0x000002e2                __vector_54
-                0x000002e2                __vector_17
-                0x000002e2                __vector_19
-                0x000002e2                __vector_56
-                0x000002e2                __vector_7
-                0x000002e2                __vector_49
-                0x000002e2                __vector_41
-                0x000002e2                __vector_43
-                0x000002e2                __vector_27
-                0x000002e2                __vector_5
-                0x000002e2                __vector_33
-                0x000002e2                __vector_47
-                0x000002e2                __vector_52
-                0x000002e2                __vector_37
-                0x000002e2                __vector_4
-                0x000002e2                __vector_44
-                0x000002e2                __vector_51
-                0x000002e2                __vector_9
-                0x000002e2                __vector_2
-                0x000002e2                __vector_21
-                0x000002e2                __vector_15
-                0x000002e2                __vector_40
-                0x000002e2                __vector_26
-                0x000002e2                __vector_48
-                0x000002e2                __vector_14
-                0x000002e2                __vector_53
-                0x000002e2                __vector_10
-                0x000002e2                __vector_50
-                0x000002e2                __vector_16
-                0x000002e2                __vector_18
-                0x000002e2                __vector_20
-                0x000002e2                __vector_42
-                0x000002e4                . = ALIGN (0x2)
+ .text          0x000006dc        0x2 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
+                0x000006dc                __vector_38
+                0x000006dc                __vector_22
+                0x000006dc                __vector_28
+                0x000006dc                __vector_1
+                0x000006dc                __vector_32
+                0x000006dc                __vector_34
+                0x000006dc                __vector_24
+                0x000006dc                __vector_12
+                0x000006dc                __vector_55
+                0x000006dc                __vector_46
+                0x000006dc                __bad_interrupt
+                0x000006dc                __vector_6
+                0x000006dc                __vector_31
+                0x000006dc                __vector_35
+                0x000006dc                __vector_39
+                0x000006dc                __vector_3
+                0x000006dc                __vector_23
+                0x000006dc                __vector_30
+                0x000006dc                __vector_45
+                0x000006dc                __vector_11
+                0x000006dc                __vector_54
+                0x000006dc                __vector_17
+                0x000006dc                __vector_19
+                0x000006dc                __vector_56
+                0x000006dc                __vector_7
+                0x000006dc                __vector_49
+                0x000006dc                __vector_41
+                0x000006dc                __vector_43
+                0x000006dc                __vector_27
+                0x000006dc                __vector_5
+                0x000006dc                __vector_33
+                0x000006dc                __vector_47
+                0x000006dc                __vector_52
+                0x000006dc                __vector_37
+                0x000006dc                __vector_4
+                0x000006dc                __vector_44
+                0x000006dc                __vector_51
+                0x000006dc                __vector_9
+                0x000006dc                __vector_2
+                0x000006dc                __vector_21
+                0x000006dc                __vector_15
+                0x000006dc                __vector_40
+                0x000006dc                __vector_26
+                0x000006dc                __vector_48
+                0x000006dc                __vector_14
+                0x000006dc                __vector_53
+                0x000006dc                __vector_10
+                0x000006dc                __vector_50
+                0x000006dc                __vector_16
+                0x000006dc                __vector_18
+                0x000006dc                __vector_20
+                0x000006dc                __vector_42
+                0x000006de                . = ALIGN (0x2)
  *(.text.*)
+ .text.doFlashWriteTest
+                0x000006de       0x9e Commands/testCommand1.o
+                0x000006de                doFlashWriteTest
+ .text.doFlashReadTest
+                0x0000077c       0xc8 Commands/testCommand1.o
+                0x0000077c                doFlashReadTest
+ .text.doFlashEraseTest
+                0x00000844        0x6 Commands/testCommand1.o
+                0x00000844                doFlashEraseTest
  .text.processCommand
-                0x000002e4      0x370 Commands/testCommand1.o
-                0x000002e4                processCommand
+                0x0000084a      0x39e Commands/testCommand1.o
+                0x0000084a                processCommand
  .text.__vector_8
-                0x00000654       0x14 CountersAndTimers.o
-                0x00000654                __vector_8
+                0x00000be8       0x14 CountersAndTimers.o
+                0x00000be8                __vector_8
  .text.__vector_13
-                0x00000668       0x8c CountersAndTimers.o
-                0x00000668                __vector_13
+                0x00000bfc       0x8c CountersAndTimers.o
+                0x00000bfc                __vector_13
  .text.init_timer2
-                0x000006f4       0x30 CountersAndTimers.o
-                0x000006f4                init_timer2
+                0x00000c88       0x30 CountersAndTimers.o
+                0x00000c88                init_timer2
  .text.init_CountersIimers
-                0x00000724       0x16 CountersAndTimers.o
-                0x00000724                init_CountersIimers
+                0x00000cb8       0x16 CountersAndTimers.o
+                0x00000cb8                init_CountersIimers
  .text.ADC_rdSystemStatus
-                0x0000073a       0x20 Drivers/ADC2518.o
-                0x0000073a                ADC_rdSystemStatus
+                0x00000cce       0x20 Drivers/ADC2518.o
+                0x00000cce                ADC_rdSystemStatus
  .text.ADC_wrGPO
-                0x0000075a       0x3c Drivers/ADC2518.o
-                0x0000075a                ADC_wrGPO
+                0x00000cee       0x3c Drivers/ADC2518.o
+                0x00000cee                ADC_wrGPO
  .text.initADC2518
-                0x00000796       0x1a Drivers/ADC2518.o
-                0x00000796                initADC2518
+                0x00000d2a       0x1a Drivers/ADC2518.o
+                0x00000d2a                initADC2518
  .text.ADC_OverSample
-                0x000007b0       0x22 Drivers/ADC2518.o
-                0x000007b0                ADC_OverSample
+                0x00000d44       0x22 Drivers/ADC2518.o
+                0x00000d44                ADC_OverSample
  .text.ADC_OscSpeed
-                0x000007d2       0x38 Drivers/ADC2518.o
-                0x000007d2                ADC_OscSpeed
+                0x00000d66       0x38 Drivers/ADC2518.o
+                0x00000d66                ADC_OscSpeed
  .text.ADC_manualMode
-                0x0000080a        0x8 Drivers/ADC2518.o
-                0x0000080a                ADC_manualMode
+                0x00000d9e        0x8 Drivers/ADC2518.o
+                0x00000d9e                ADC_manualMode
  .text.ADC_ReadManualModeAnalogCh
-                0x00000812       0x66 Drivers/ADC2518.o
-                0x00000812                ADC_ReadManualModeAnalogCh
- .text.nextADC  0x00000878       0x5c Drivers/ADC_uC.o
-                0x00000878                nextADC
+                0x00000da6       0x66 Drivers/ADC2518.o
+                0x00000da6                ADC_ReadManualModeAnalogCh
+ .text.nextADC  0x00000e0c       0x5c Drivers/ADC_uC.o
+                0x00000e0c                nextADC
  .text.showActiveADCs
-                0x000008d4       0x78 Drivers/ADC_uC.o
-                0x000008d4                showActiveADCs
+                0x00000e68       0x78 Drivers/ADC_uC.o
+                0x00000e68                showActiveADCs
  .text.incADC_MUX
-                0x0000094c       0x32 Drivers/ADC_uC.o
-                0x0000094c                incADC_MUX
+                0x00000ee0       0x32 Drivers/ADC_uC.o
+                0x00000ee0                incADC_MUX
  .text.__vector_29
-                0x0000097e      0x106 Drivers/ADC_uC.o
-                0x0000097e                __vector_29
- .text.doAdc    0x00000a84       0x56 Drivers/ADC_uC.o
-                0x00000a84                doAdc
+                0x00000f12      0x106 Drivers/ADC_uC.o
+                0x00000f12                __vector_29
+ .text.doAdc    0x00001018       0x56 Drivers/ADC_uC.o
+                0x00001018                doAdc
  .text.startADCcycle
-                0x00000ada       0x2c Drivers/ADC_uC.o
-                0x00000ada                startADCcycle
+                0x0000106e       0x2c Drivers/ADC_uC.o
+                0x0000106e                startADCcycle
  .text.init_adc
-                0x00000b06       0x3e Drivers/ADC_uC.o
-                0x00000b06                init_adc
+                0x0000109a       0x3e Drivers/ADC_uC.o
+                0x0000109a                init_adc
  .text.readDiff_CH
-                0x00000b44       0x1e Drivers/NPA700.o
-                0x00000b44                readDiff_CH
+                0x000010d8       0x1e Drivers/NPA700.o
+                0x000010d8                readDiff_CH
  .text.readNPA700
-                0x00000b62      0x150 Drivers/NPA700.o
-                0x00000b62                readNPA700
+                0x000010f6      0x152 Drivers/NPA700.o
+                0x000010f6                readNPA700
  .text.initPressureSensors
-                0x00000cb2       0x86 Drivers/NPA700.o
-                0x00000cb2                initPressureSensors
+                0x00001248       0x86 Drivers/NPA700.o
+                0x00001248                initPressureSensors
  .text.readDiffPress
-                0x00000d38       0x1c Drivers/NPA700.o
-                0x00000d38                readDiffPress
+                0x000012ce       0x1c Drivers/NPA700.o
+                0x000012ce                readDiffPress
  .text.readABSPress
-                0x00000d54       0x1c Drivers/NPA700.o
-                0x00000d54                readABSPress
- .text.readU47  0x00000d70       0x1c Drivers/NPA700.o
-                0x00000d70                readU47
+                0x000012ea       0x1c Drivers/NPA700.o
+                0x000012ea                readABSPress
+ .text.readU47  0x00001306       0x1c Drivers/NPA700.o
+                0x00001306                readU47
  .text.startRH_T_conversion
-                0x00000d8c       0x28 Drivers/RH_T.o
-                0x00000d8c                startRH_T_conversion
+                0x00001322       0x28 Drivers/RH_T.o
+                0x00001322                startRH_T_conversion
  .text.readRH_T
-                0x00000db4      0x100 Drivers/RH_T.o
-                0x00000db4                readRH_T
+                0x0000134a      0x102 Drivers/RH_T.o
+                0x0000134a                readRH_T
  .text.ADC_RegisterWrite
-                0x00000eb4       0x1e Drivers/spi_ADC2518.o
-                0x00000eb4                ADC_RegisterWrite
+                0x0000144c       0x1e Drivers/spi_ADC2518.o
+                0x0000144c                ADC_RegisterWrite
  .text.ADC_RegisterRead
-                0x00000ed2       0x30 Drivers/spi_ADC2518.o
-                0x00000ed2                ADC_RegisterRead
+                0x0000146a       0x30 Drivers/spi_ADC2518.o
+                0x0000146a                ADC_RegisterRead
  .text.ADC_RegisterReadWrite
-                0x00000f02       0x54 Drivers/spi_ADC2518.o
-                0x00000f02                ADC_RegisterReadWrite
+                0x0000149a       0x54 Drivers/spi_ADC2518.o
+                0x0000149a                ADC_RegisterReadWrite
  .text.enableBuck014
-                0x00000f56        0xc Drivers/EnablesAndCSs.o
-                0x00000f56                enableBuck014
+                0x000014ee        0xc Drivers/EnablesAndCSs.o
+                0x000014ee                enableBuck014
  .text.disableBuck014
-                0x00000f62        0xc Drivers/EnablesAndCSs.o
-                0x00000f62                disableBuck014
+                0x000014fa        0xc Drivers/EnablesAndCSs.o
+                0x000014fa                disableBuck014
  .text.enableBuck2
-                0x00000f6e        0x8 Drivers/EnablesAndCSs.o
-                0x00000f6e                enableBuck2
+                0x00001506        0x8 Drivers/EnablesAndCSs.o
+                0x00001506                enableBuck2
  .text.disableBuck2
-                0x00000f76        0x8 Drivers/EnablesAndCSs.o
-                0x00000f76                disableBuck2
+                0x0000150e        0x8 Drivers/EnablesAndCSs.o
+                0x0000150e                disableBuck2
  .text.enableBuck3
-                0x00000f7e        0x8 Drivers/EnablesAndCSs.o
-                0x00000f7e                enableBuck3
+                0x00001516        0x8 Drivers/EnablesAndCSs.o
+                0x00001516                enableBuck3
  .text.disableBuck3
-                0x00000f86        0x8 Drivers/EnablesAndCSs.o
-                0x00000f86                disableBuck3
+                0x0000151e        0x8 Drivers/EnablesAndCSs.o
+                0x0000151e                disableBuck3
  .text.enableBuck5
-                0x00000f8e        0xc Drivers/EnablesAndCSs.o
-                0x00000f8e                enableBuck5
+                0x00001526        0xc Drivers/EnablesAndCSs.o
+                0x00001526                enableBuck5
  .text.disableBuck5
-                0x00000f9a        0xc Drivers/EnablesAndCSs.o
-                0x00000f9a                disableBuck5
+                0x00001532        0xc Drivers/EnablesAndCSs.o
+                0x00001532                disableBuck5
  .text.powerUpWickSensor
-                0x00000fa6        0x8 Drivers/EnablesAndCSs.o
-                0x00000fa6                powerUpWickSensor
+                0x0000153e        0x8 Drivers/EnablesAndCSs.o
+                0x0000153e                powerUpWickSensor
  .text.powerDownWickSensor
-                0x00000fae        0x8 Drivers/EnablesAndCSs.o
-                0x00000fae                powerDownWickSensor
+                0x00001546        0x8 Drivers/EnablesAndCSs.o
+                0x00001546                powerDownWickSensor
  .text.selectFRAM
-                0x00000fb6        0x8 Drivers/EnablesAndCSs.o
-                0x00000fb6                selectFRAM
+                0x0000154e        0x8 Drivers/EnablesAndCSs.o
+                0x0000154e                selectFRAM
  .text.deSelectFRAM
-                0x00000fbe        0x8 Drivers/EnablesAndCSs.o
-                0x00000fbe                deSelectFRAM
+                0x00001556        0x8 Drivers/EnablesAndCSs.o
+                0x00001556                deSelectFRAM
  .text.selectOpticsDAC
-                0x00000fc6        0xc Drivers/EnablesAndCSs.o
-                0x00000fc6                selectOpticsDAC
+                0x0000155e        0xc Drivers/EnablesAndCSs.o
+                0x0000155e                selectOpticsDAC
  .text.deSelectOpticsDAC
-                0x00000fd2        0xc Drivers/EnablesAndCSs.o
-                0x00000fd2                deSelectOpticsDAC
+                0x0000156a        0xc Drivers/EnablesAndCSs.o
+                0x0000156a                deSelectOpticsDAC
  .text.selectADC2518
-                0x00000fde        0xc Drivers/EnablesAndCSs.o
-                0x00000fde                selectADC2518
+                0x00001576        0xc Drivers/EnablesAndCSs.o
+                0x00001576                selectADC2518
  .text.deSelectADC2518
-                0x00000fea        0xc Drivers/EnablesAndCSs.o
-                0x00000fea                deSelectADC2518
+                0x00001582        0xc Drivers/EnablesAndCSs.o
+                0x00001582                deSelectADC2518
  .text.selectBuckCtrlDAC
-                0x00000ff6        0xc Drivers/EnablesAndCSs.o
-                0x00000ff6                selectBuckCtrlDAC
+                0x0000158e        0xc Drivers/EnablesAndCSs.o
+                0x0000158e                selectBuckCtrlDAC
  .text.deSelectBuckCtrlDAC
-                0x00001002        0xc Drivers/EnablesAndCSs.o
-                0x00001002                deSelectBuckCtrlDAC
+                0x0000159a        0xc Drivers/EnablesAndCSs.o
+                0x0000159a                deSelectBuckCtrlDAC
  .text.selectFlash
-                0x0000100e        0xc Drivers/EnablesAndCSs.o
-                0x0000100e                selectFlash
+                0x000015a6        0xc Drivers/EnablesAndCSs.o
+                0x000015a6                selectFlash
  .text.deSelectFlash
-                0x0000101a        0xc Drivers/EnablesAndCSs.o
-                0x0000101a                deSelectFlash
+                0x000015b2        0xc Drivers/EnablesAndCSs.o
+                0x000015b2                deSelectFlash
  .text.deSelectRTC
-                0x00001026        0xc Drivers/EnablesAndCSs.o
-                0x00001026                deSelectRTC
+                0x000015be        0xc Drivers/EnablesAndCSs.o
+                0x000015be                deSelectRTC
  .text.selectRTC
-                0x00001032        0xc Drivers/EnablesAndCSs.o
-                0x00001032                selectRTC
+                0x000015ca        0xc Drivers/EnablesAndCSs.o
+                0x000015ca                selectRTC
  .text.selectSDcard
-                0x0000103e        0xc Drivers/EnablesAndCSs.o
-                0x0000103e                selectSDcard
+                0x000015d6        0xc Drivers/EnablesAndCSs.o
+                0x000015d6                selectSDcard
  .text.deSelectSDcard
-                0x0000104a        0xc Drivers/EnablesAndCSs.o
-                0x0000104a                deSelectSDcard
+                0x000015e2        0xc Drivers/EnablesAndCSs.o
+                0x000015e2                deSelectSDcard
  .text.spi_FlashReadID
-                0x00001056       0x42 Drivers/FLASH_Driver.o
-                0x00001056                spi_FlashReadID
+                0x000015ee       0x42 Drivers/FLASH_Driver.o
+                0x000015ee                spi_FlashReadID
+ .text.spi_FlashGetFeatures
+                0x00001630       0x1c Drivers/FLASH_Driver.o
+                0x00001630                spi_FlashGetFeatures
+ .text.spi_FlashGetStatusRegister
+                0x0000164c        0x6 Drivers/FLASH_Driver.o
+                0x0000164c                spi_FlashGetStatusRegister
+ .text.spi_FlashIsBusy
+                0x00001652       0x26 Drivers/FLASH_Driver.o
+                0x00001652                spi_FlashIsBusy
+ .text.spi_FlashWaitUntilReady
+                0x00001678       0x1c Drivers/FLASH_Driver.o
+                0x00001678                spi_FlashWaitUntilReady
+ .text.spi_FlashEnableWrite
+                0x00001694       0x30 Drivers/FLASH_Driver.o
+                0x00001694                spi_FlashEnableWrite
+ .text.spi_FlashDisableWrite
+                0x000016c4       0x32 Drivers/FLASH_Driver.o
+                0x000016c4                spi_FlashDisableWrite
+ .text.spi_FlashWriteToPage
+                0x000016f6      0x156 Drivers/FLASH_Driver.o
+                0x000016f6                spi_FlashWriteToPage
+ .text.spi_FlashWrite
+                0x0000184c       0xc6 Drivers/FLASH_Driver.o
+                0x0000184c                spi_FlashWrite
+ .text.spi_FlashReadFromPage
+                0x00001912       0xd6 Drivers/FLASH_Driver.o
+                0x00001912                spi_FlashReadFromPage
+ .text.spi_FlashRead
+                0x000019e8       0xc6 Drivers/FLASH_Driver.o
+                0x000019e8                spi_FlashRead
+ .text.spi_FlashEraseBlock
+                0x00001aae       0xb6 Drivers/FLASH_Driver.o
+                0x00001aae                spi_FlashEraseBlock
+ .text.spi_FlashReset
+                0x00001b64       0x2c Drivers/FLASH_Driver.o
+                0x00001b64                spi_FlashReset
+ .text.spi_FlashEraseAllBlocks
+                0x00001b90       0x74 Drivers/FLASH_Driver.o
+                0x00001b90                spi_FlashEraseAllBlocks
  .text.RTC_config
-                0x00001098       0x8c Drivers/RTC.o
-                0x00001098                RTC_config
+                0x00001c04       0x8c Drivers/RTC.o
+                0x00001c04                RTC_config
  .text.RTC_readCLKF
-                0x00001124       0x38 Drivers/RTC.o
-                0x00001124                RTC_readCLKF
+                0x00001c90       0x38 Drivers/RTC.o
+                0x00001c90                RTC_readCLKF
  .text.init_spi
-                0x0000115c       0x14 Drivers/spi.o
-                0x0000115c                init_spi
+                0x00001cc8       0x14 Drivers/spi.o
+                0x00001cc8                init_spi
  .text.spiTransferByte
-                0x00001170        0xc Drivers/spi.o
-                0x00001170                spiTransferByte
+                0x00001cdc        0xc Drivers/spi.o
+                0x00001cdc                spiTransferByte
  .text.spiSendBytes
-                0x0000117c       0x24 Drivers/spi.o
-                0x0000117c                spiSendBytes
+                0x00001ce8       0x24 Drivers/spi.o
+                0x00001ce8                spiSendBytes
  .text.spiGetBytes
-                0x000011a0       0x22 Drivers/spi.o
-                0x000011a0                spiGetBytes
+                0x00001d0c       0x22 Drivers/spi.o
+                0x00001d0c                spiGetBytes
  .text.spiSend2ByteBigEndian
-                0x000011c2       0x2e Drivers/spi.o
-                0x000011c2                spiSend2ByteBigEndian
+                0x00001d2e       0x2e Drivers/spi.o
+                0x00001d2e                spiSend2ByteBigEndian
  .text.spi_buckCtrlDac
-                0x000011f0       0x6e Drivers/spi_DACs.o
-                0x000011f0                spi_buckCtrlDac
+                0x00001d5c       0x6e Drivers/spi_DACs.o
+                0x00001d5c                spi_buckCtrlDac
  .text.spi_OpticsDAC
-                0x0000125e       0x6e Drivers/spi_DACs.o
-                0x0000125e                spi_OpticsDAC
+                0x00001dca       0x6e Drivers/spi_DACs.o
+                0x00001dca                spi_OpticsDAC
  .text.spi_OpticsDAC_BroadCast
-                0x000012cc       0x24 Drivers/spi_DACs.o
-                0x000012cc                spi_OpticsDAC_BroadCast
+                0x00001e38       0x24 Drivers/spi_DACs.o
+                0x00001e38                spi_OpticsDAC_BroadCast
  .text.spi_OpticsBuckCtl_BroadCast
-                0x000012f0       0x24 Drivers/spi_DACs.o
-                0x000012f0                spi_OpticsBuckCtl_BroadCast
+                0x00001e5c       0x24 Drivers/spi_DACs.o
+                0x00001e5c                spi_OpticsBuckCtl_BroadCast
  .text.spi_FRAM_writeEnable
-                0x00001314        0xa Drivers/spi_FRAM.o
-                0x00001314                spi_FRAM_writeEnable
+                0x00001e80        0xa Drivers/spi_FRAM.o
+                0x00001e80                spi_FRAM_writeEnable
  .text.FRAM_ReadStatusRegister
-                0x0000131e       0x2e Drivers/spi_FRAM.o
-                0x0000131e                FRAM_ReadStatusRegister
+                0x00001e8a       0x2e Drivers/spi_FRAM.o
+                0x00001e8a                FRAM_ReadStatusRegister
  .text.spi_FRAM_write
-                0x0000134c       0x46 Drivers/spi_FRAM.o
-                0x0000134c                spi_FRAM_write
+                0x00001eb8       0x46 Drivers/spi_FRAM.o
+                0x00001eb8                spi_FRAM_write
  .text.spi_FRAM_read
-                0x00001392       0x5a Drivers/spi_FRAM.o
-                0x00001392                spi_FRAM_read
+                0x00001efe       0x5a Drivers/spi_FRAM.o
+                0x00001efe                spi_FRAM_read
  .text.read_FRAM_DeviceID
-                0x000013ec       0x5a Drivers/spi_FRAM.o
-                0x000013ec                read_FRAM_DeviceID
- .text.wrFRAM   0x00001446       0x86 Drivers/spi_FRAM.o
-                0x00001446                wrFRAM
+                0x00001f58       0x5a Drivers/spi_FRAM.o
+                0x00001f58                read_FRAM_DeviceID
+ .text.wrFRAM   0x00001fb2       0x86 Drivers/spi_FRAM.o
+                0x00001fb2                wrFRAM
  .text.framSaveSerialNumber
-                0x000014cc       0x18 Drivers/spi_FRAM.o
-                0x000014cc                framSaveSerialNumber
+                0x00002038       0x18 Drivers/spi_FRAM.o
+                0x00002038                framSaveSerialNumber
  .text.framReadSerialNumber
-                0x000014e4       0x30 Drivers/spi_FRAM.o
-                0x000014e4                framReadSerialNumber
+                0x00002050       0x30 Drivers/spi_FRAM.o
+                0x00002050                framReadSerialNumber
  .text.spi_RTC_Write
-                0x00001514       0x2c Drivers/spi_RTC.o
-                0x00001514                spi_RTC_Write
+                0x00002080       0x2c Drivers/spi_RTC.o
+                0x00002080                spi_RTC_Write
  .text.spi_RTC_Read
-                0x00001540       0x2c Drivers/spi_RTC.o
-                0x00001540                spi_RTC_Read
+                0x000020ac       0x2c Drivers/spi_RTC.o
+                0x000020ac                spi_RTC_Read
  .text.getMuxConfiguration
-                0x0000156c       0x2e Drivers/TWI_MUX.o
-                0x0000156c                getMuxConfiguration
+                0x000020d8       0x2e Drivers/TWI_MUX.o
+                0x000020d8                getMuxConfiguration
  .text.setI2Cmux
-                0x0000159a       0xda Drivers/TWI_MUX.o
-                0x0000159a                setI2Cmux
+                0x00002106       0xda Drivers/TWI_MUX.o
+                0x00002106                setI2Cmux
  .text.setStatus
-                0x00001674       0x1a Drivers/twi_utils.o
-                0x00001674                setStatus
+                0x000021e0       0x1a Drivers/twi_utils.o
+                0x000021e0                setStatus
  .text.showERRORcode
-                0x0000168e       0x1a Drivers/twi_utils.o
-                0x0000168e                showERRORcode
+                0x000021fa       0x1a Drivers/twi_utils.o
+                0x000021fa                showERRORcode
  .text.init_twi
-                0x000016a8       0x8a Drivers/twi_utils.o
-                0x000016a8                init_twi
+                0x00002214       0x8a Drivers/twi_utils.o
+                0x00002214                init_twi
  .text.twi_start
-                0x00001732       0x64 Drivers/twi_utils.o
-                0x00001732                twi_start
+                0x0000229e       0x64 Drivers/twi_utils.o
+                0x0000229e                twi_start
  .text.twi_write_bytes
-                0x00001796       0xee Drivers/twi_utils.o
-                0x00001796                twi_write_bytes
+                0x00002302       0xee Drivers/twi_utils.o
+                0x00002302                twi_write_bytes
  .text.twi_read_bytes
-                0x00001884      0x118 Drivers/twi_utils.o
-                0x00001884                twi_read_bytes
+                0x000023f0      0x118 Drivers/twi_utils.o
+                0x000023f0                twi_read_bytes
  .text.init_Ports
-                0x0000199c       0x34 Initialize.o
-                0x0000199c                init_Ports
+                0x00002508       0x34 Initialize.o
+                0x00002508                init_Ports
  .text.initialize
-                0x000019d0       0x68 Initialize.o
-                0x000019d0                initialize
- .text.main     0x00001a38       0x5c main.o
-                0x00001a38                main
+                0x0000253c       0x6e Initialize.o
+                0x0000253c                initialize
+ .text.main     0x000025aa       0x5c main.o
+                0x000025aa                main
  .text.ringbuf_init
-                0x00001a94       0x16 uart.o
+                0x00002606       0x16 uart.o
  .text.ringbuf_get
-                0x00001aaa       0x52 uart.o
+                0x0000261c       0x52 uart.o
  .text.ringbuf_put
-                0x00001afc       0x56 uart.o
+                0x0000266e       0x56 uart.o
  .text.init_uart
-                0x00001b52       0x7a uart.o
-                0x00001b52                init_uart
+                0x000026c4       0x7a uart.o
+                0x000026c4                init_uart
  .text.uart0_putchar
-                0x00001bcc       0x28 uart.o
-                0x00001bcc                uart0_putchar
+                0x0000273e       0x28 uart.o
+                0x0000273e                uart0_putchar
  .text.uart1_put
-                0x00001bf4       0x20 uart.o
-                0x00001bf4                uart1_put
+                0x00002766       0x20 uart.o
+                0x00002766                uart1_put
  .text.uarts_getchar
-                0x00001c14        0x6 uart.o
-                0x00001c14                uarts_getchar
+                0x00002786        0x6 uart.o
+                0x00002786                uarts_getchar
  .text.__vector_25
-                0x00001c1a      0x1be uart.o
-                0x00001c1a                __vector_25
+                0x0000278c      0x1be uart.o
+                0x0000278c                __vector_25
  .text.__vector_36
-                0x00001dd8       0x9e uart.o
-                0x00001dd8                __vector_36
- .text.doUart   0x00001e76       0xcc uart.o
-                0x00001e76                doUart
+                0x0000294a       0x9e uart.o
+                0x0000294a                __vector_36
+ .text.doUart   0x000029e8       0xcc uart.o
+                0x000029e8                doUart
  .text.avr-libc.fplib
-                0x00001f42       0x58 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixunssfsi.o)
-                0x00001f42                __fixunssfsi
+                0x00002ab4       0x58 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fixunssfsi.o)
+                0x00002ab4                __fixunssfsi
  .text.avr-libc.fplib
-                0x00001f9a       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(floatsisf.o)
-                0x00001f9a                __floatunsisf
-                0x00001f9e                __floatsisf
+                0x00002b0c       0x7a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(floatsisf.o)
+                0x00002b0c                __floatunsisf
+                0x00002b10                __floatsisf
  .text.avr-libc.fplib
-                0x00002014       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_split3.o)
-                0x00002014                __fp_split3
-                0x00002024                __fp_splitA
+                0x00002b86       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_split3.o)
+                0x00002b86                __fp_split3
+                0x00002b96                __fp_splitA
  .text.avr-libc.fplib
-                0x00002058        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_zero.o)
-                0x00002058                __fp_zero
-                0x0000205a                __fp_szero
+                0x00002bca        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_zero.o)
+                0x00002bca                __fp_zero
+                0x00002bcc                __fp_szero
  .text.avr-libc.fplib
-                0x00002066        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(mulsf3.o)
-                0x00002066                __mulsf3
+                0x00002bd8        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(mulsf3.o)
+                0x00002bd8                __mulsf3
  .text.avr-libc.fplib
-                0x0000206a       0xc2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(mulsf3x.o)
-                0x0000207e                __mulsf3x
-                0x00002082                __mulsf3_pse
+                0x00002bdc       0xc2 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(mulsf3x.o)
+                0x00002bf0                __mulsf3x
+                0x00002bf4                __mulsf3_pse
  .text.avr-libc.fplib
-                0x0000212c        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_inf.o)
-                0x0000212c                __fp_inf
+                0x00002c9e        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_inf.o)
+                0x00002c9e                __fp_inf
  .text.avr-libc.fplib
-                0x00002138        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_nan.o)
-                0x00002138                __fp_nan
+                0x00002caa        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_nan.o)
+                0x00002caa                __fp_nan
  .text.avr-libc.fplib
-                0x0000213e        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_pscA.o)
-                0x0000213e                __fp_pscA
+                0x00002cb0        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_pscA.o)
+                0x00002cb0                __fp_pscA
  .text.avr-libc.fplib
-                0x0000214c        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_pscB.o)
-                0x0000214c                __fp_pscB
+                0x00002cbe        0xe c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_pscB.o)
+                0x00002cbe                __fp_pscB
  .text.avr-libc.fplib
-                0x0000215a       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_round.o)
-                0x0000215a                __fp_round
+                0x00002ccc       0x22 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libm.a(fp_round.o)
+                0x00002ccc                __fp_round
  .text.avr-libc
-                0x0000217c      0x712 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libprintf_flt.a(vfprintf_flt.o)
-                0x0000217c                vfprintf
+                0x00002cee      0x712 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libprintf_flt.a(vfprintf_flt.o)
+                0x00002cee                vfprintf
  .text.libgcc.div
-                0x0000288e       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o)
-                0x0000288e                __divmodsi4
+                0x00003400       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
+                0x00003400                __udivmodsi4
  .text.libgcc.div
-                0x000028b6       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_negsi2.o)
-                0x000028b6                __negsi2
+                0x00003444       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_divmodsi4.o)
+                0x00003444                __divmodsi4
+ .text.libgcc.div
+                0x0000346c       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_negsi2.o)
+                0x0000346c                __negsi2
  .text.libgcc.mul
-                0x000028c6       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_umulhisi3.o)
-                0x000028c6                __umulhisi3
+                0x0000347c       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_umulhisi3.o)
+                0x0000347c                __umulhisi3
  .text.libgcc.mul
-                0x000028e4        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_usmulhisi3.o)
-                0x000028e4                __usmulhisi3
-                0x000028e6                __usmulhisi3_tail
- .text.libgcc.div
-                0x000028f0       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_udivmodsi4.o)
-                0x000028f0                __udivmodsi4
+                0x0000349a        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_usmulhisi3.o)
+                0x0000349a                __usmulhisi3
+                0x0000349c                __usmulhisi3_tail
  .text.avr-libc
-                0x00002934       0x3a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(atoi.o)
-                0x00002934                atoi
+                0x000034a6       0x3a c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(atoi.o)
+                0x000034a6                atoi
  .text.avr-libc
-                0x0000296e      0x1b0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(ftoa_engine.o)
-                0x0000296e                __ftoa_engine
+                0x000034e0      0x1b0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(ftoa_engine.o)
+                0x000034e0                __ftoa_engine
  .text.avr-libc
-                0x00002b1e       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strnlen_P.o)
-                0x00002b1e                strnlen_P
+                0x00003690       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strnlen_P.o)
+                0x00003690                strnlen_P
  .text.avr-libc
-                0x00002b34       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strcmp.o)
-                0x00002b34                strcmp
+                0x000036a6       0x12 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strcmp.o)
+                0x000036a6                strcmp
  .text.avr-libc
-                0x00002b46       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strnlen.o)
-                0x00002b46                strnlen
+                0x000036b8       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(strnlen.o)
+                0x000036b8                strnlen
  .text.avr-libc
-                0x00002b5c       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(mul10.o)
-                0x00002b5c                __mulhi_const_10
+                0x000036ce       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(mul10.o)
+                0x000036ce                __mulhi_const_10
  .text.avr-libc
-                0x00002b6c       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(fputc.o)
-                0x00002b6c                fputc
+                0x000036de       0x78 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(fputc.o)
+                0x000036de                fputc
  .text.avr-libc
-                0x00002be4       0x26 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(printf.o)
-                0x00002be4                printf
+                0x00003756       0x26 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(printf.o)
+                0x00003756                printf
  .text.avr-libc
-                0x00002c0a       0x4e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(printf_p.o)
-                0x00002c0a                printf_P
+                0x0000377c       0x4e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(printf_p.o)
+                0x0000377c                printf_P
  .text.avr-libc
-                0x00002c58        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(putchar.o)
-                0x00002c58                putchar
+                0x000037ca        0xa c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(putchar.o)
+                0x000037ca                putchar
  .text.avr-libc
-                0x00002c62       0x60 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(puts.o)
-                0x00002c62                puts
+                0x000037d4       0x60 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(puts.o)
+                0x000037d4                puts
  .text.avr-libc
-                0x00002cc2       0xbc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(ultoa_invert.o)
-                0x00002cc2                __ultoa_invert
-                0x00002d7e                . = ALIGN (0x2)
+                0x00003834       0xbc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(ultoa_invert.o)
+                0x00003834                __ultoa_invert
+                0x000038f0                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00002d7e        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
-                0x00002d7e                _exit
-                0x00002d7e                exit
+ .fini9         0x000038f0        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+                0x000038f0                _exit
+                0x000038f0                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -1182,11 +1278,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00002d7e        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
+ .fini0         0x000038f0        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr6\libgcc.a(_exit.o)
  *(.fini0)
-                0x00002d82                _etext = .
+                0x000038f4                _etext = .
 
-.data           0x00800200      0x59a load address 0x00002d82
+.data           0x00800200      0x63a load address 0x000038f4
                 0x00800200                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -1198,122 +1294,123 @@ END GROUP
  *(.rodata)
  *(.rodata*)
  .rodata.str1.1
-                0x0080020f       0xf7 Commands/testCommand1.o
+                0x0080020f      0x122 Commands/testCommand1.o
  .rodata.str1.1
-                0x00800306       0x30 CountersAndTimers.o
+                0x00800331       0x30 CountersAndTimers.o
  .rodata.str1.1
-                0x00800336       0x4a Drivers/ADC2518.o
+                0x00800361       0x4a Drivers/ADC2518.o
  .rodata.str1.1
-                0x00800380       0x4b Drivers/ADC_uC.o
+                0x008003ab       0x4b Drivers/ADC_uC.o
  .rodata.str1.1
-                0x008003cb       0x30 Drivers/NPA700.o
+                0x008003f6       0x30 Drivers/NPA700.o
  .rodata.str1.1
-                0x008003fb       0x7b Drivers/RH_T.o
+                0x00800426       0x7b Drivers/RH_T.o
  .rodata.str1.1
-                0x00800476       0x15 Drivers/spi_ADC2518.o
+                0x008004a1       0x15 Drivers/spi_ADC2518.o
  .rodata.str1.1
-                0x0080048b       0x10 Drivers/FLASH_Driver.o
+                0x008004b6       0x84 Drivers/FLASH_Driver.o
  .rodata.str1.1
-                0x0080049b       0x70 Drivers/RTC.o
+                0x0080053a       0x70 Drivers/RTC.o
  .rodata.str1.1
-                0x0080050b       0x8f Drivers/spi_DACs.o
+                0x008005aa       0x8f Drivers/spi_DACs.o
  .rodata.str1.1
-                0x0080059a       0x4a Drivers/spi_FRAM.o
+                0x00800639       0x4a Drivers/spi_FRAM.o
                                  0x52 (size before relaxing)
  .rodata.str1.1
-                0x008005e4       0xa3 Drivers/TWI_MUX.o
+                0x00800683       0xa3 Drivers/TWI_MUX.o
  .rodata.numErrors.1817
-                0x00800687        0x4 Drivers/TWI_MUX.o
+                0x00800726        0x4 Drivers/TWI_MUX.o
  .rodata.str1.1
-                0x0080068b       0xb9 Drivers/twi_utils.o
+                0x0080072a       0xb9 Drivers/twi_utils.o
  .rodata.str1.1
-                0x00800744       0x11 Initialize.o
+                0x008007e3       0x11 Initialize.o
  .rodata.str1.1
-                0x00800755        0xc main.o
+                0x008007f4        0xc main.o
  .rodata.str1.1
-                0x00800761       0x39 uart.o
+                0x00800800       0x39 uart.o
  *(.gnu.linkonce.r*)
-                0x0080079a                . = ALIGN (0x2)
-                0x0080079a                _edata = .
-                0x0080079a                PROVIDE (__data_end, .)
+                0x0080083a                . = ALIGN (0x2)
+ *fill*         0x00800839        0x1 
+                0x0080083a                _edata = .
+                0x0080083a                PROVIDE (__data_end, .)
 
-.bss            0x0080079a      0x138
-                0x0080079a                PROVIDE (__bss_start, .)
+.bss            0x0080083a      0x138
+                0x0080083a                PROVIDE (__bss_start, .)
  *(.bss)
  *(.bss*)
  .bss.ms_twiCount
-                0x0080079a        0x2 CountersAndTimers.o
-                0x0080079a                ms_twiCount
+                0x0080083a        0x2 CountersAndTimers.o
+                0x0080083a                ms_twiCount
  .bss.halfSecFlag
-                0x0080079c        0x1 CountersAndTimers.o
-                0x0080079c                halfSecFlag
+                0x0080083c        0x1 CountersAndTimers.o
+                0x0080083c                halfSecFlag
  .bss.oneSecFlag
-                0x0080079d        0x1 CountersAndTimers.o
-                0x0080079d                oneSecFlag
+                0x0080083d        0x1 CountersAndTimers.o
+                0x0080083d                oneSecFlag
  .bss.counter1024Hz
-                0x0080079e        0x2 CountersAndTimers.o
-                0x0080079e                counter1024Hz
+                0x0080083e        0x2 CountersAndTimers.o
+                0x0080083e                counter1024Hz
  .bss.numReadings.2095
-                0x008007a0        0x2 Drivers/ADC_uC.o
+                0x00800840        0x2 Drivers/ADC_uC.o
  .bss.currentADCchannel
-                0x008007a2        0x1 Drivers/ADC_uC.o
+                0x00800842        0x1 Drivers/ADC_uC.o
  .bss.firstADCchannel
-                0x008007a3        0x1 Drivers/ADC_uC.o
+                0x00800843        0x1 Drivers/ADC_uC.o
  .bss.adcCompleteFlag
-                0x008007a4        0x1 Drivers/ADC_uC.o
-                0x008007a4                adcCompleteFlag
+                0x00800844        0x1 Drivers/ADC_uC.o
+                0x00800844                adcCompleteFlag
  .bss.adcReadings
-                0x008007a5       0x20 Drivers/ADC_uC.o
- .bss.npaU47    0x008007c5        0x6 Drivers/NPA700.o
- .bss.npaAbsP   0x008007cb        0x6 Drivers/NPA700.o
- .bss.npaFlow   0x008007d1        0x6 Drivers/NPA700.o
+                0x00800845       0x20 Drivers/ADC_uC.o
+ .bss.npaU47    0x00800865        0x6 Drivers/NPA700.o
+ .bss.npaAbsP   0x0080086b        0x6 Drivers/NPA700.o
+ .bss.npaFlow   0x00800871        0x6 Drivers/NPA700.o
  .bss.rhStarted
-                0x008007d7        0x1 Drivers/RH_T.o
+                0x00800877        0x1 Drivers/RH_T.o
  .bss.serialNumber
-                0x008007d8        0x2 Drivers/spi_FRAM.o
-                0x008007d8                serialNumber
- .bss.verbose   0x008007da        0x1 Drivers/twi_utils.o
+                0x00800878        0x2 Drivers/spi_FRAM.o
+                0x00800878                serialNumber
+ .bss.verbose   0x0080087a        0x1 Drivers/twi_utils.o
  .bss.currentUart
-                0x008007db        0x1 uart.o
-                0x008007db                currentUart
+                0x0080087b        0x1 uart.o
+                0x0080087b                currentUart
  .bss.pauseOutputForCmdCnt
-                0x008007dc        0x1 uart.o
-                0x008007dc                pauseOutputForCmdCnt
+                0x0080087c        0x1 uart.o
+                0x0080087c                pauseOutputForCmdCnt
  .bss.outputCharacters
-                0x008007dd        0x1 uart.o
-                0x008007dd                outputCharacters
+                0x0080087d        0x1 uart.o
+                0x0080087d                outputCharacters
  .bss.commandSize
-                0x008007de        0x1 uart.o
-                0x008007de                commandSize
+                0x0080087e        0x1 uart.o
+                0x0080087e                commandSize
  .bss.bufIndex0
-                0x008007df        0x1 uart.o
-                0x008007df                bufIndex0
- .bss.clrError  0x008007e0        0x2 uart.o
-                0x008007e0                clrError
+                0x0080087f        0x1 uart.o
+                0x0080087f                bufIndex0
+ .bss.clrError  0x00800880        0x2 uart.o
+                0x00800880                clrError
  .bss.commandCompleteFlag0
-                0x008007e2        0x1 uart.o
-                0x008007e2                commandCompleteFlag0
+                0x00800882        0x1 uart.o
+                0x00800882                commandCompleteFlag0
  *(COMMON)
- COMMON         0x008007e3       0x40 main.o
-                0x008007e3                userSettings
-                0x008007e8                readings
-                0x0080081a                hdwConfig
- COMMON         0x00800823       0xa9 uart.o
-                0x00800823                rb
-                0x0080082b                buf1
-                0x008008ab                commandCompleteFlag1
-                0x008008ac                buf
- COMMON         0x008008cc        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(iob.o)
-                0x008008cc                __iob
-                0x008008d2                PROVIDE (__bss_end, .)
-                0x00002d82                __data_load_start = LOADADDR (.data)
-                0x0000331c                __data_load_end = (__data_load_start + SIZEOF (.data))
+ COMMON         0x00800883       0x40 main.o
+                0x00800883                userSettings
+                0x00800888                readings
+                0x008008ba                hdwConfig
+ COMMON         0x008008c3       0xa9 uart.o
+                0x008008c3                rb
+                0x008008cb                buf1
+                0x0080094b                commandCompleteFlag1
+                0x0080094c                buf
+ COMMON         0x0080096c        0x6 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr6\libc.a(iob.o)
+                0x0080096c                __iob
+                0x00800972                PROVIDE (__bss_end, .)
+                0x000038f4                __data_load_start = LOADADDR (.data)
+                0x00003f2e                __data_load_end = (__data_load_start + SIZEOF (.data))
 
-.noinit         0x008008d2        0x0
+.noinit         0x00800972        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
  *(.noinit*)
                 [!provide]                PROVIDE (__noinit_end, .)
-                0x008008d2                _end = .
+                0x00800972                _end = .
                 [!provide]                PROVIDE (__heap_start, .)
 
 .eeprom         0x00810000        0x0
@@ -1404,202 +1501,202 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000      0x560
+.debug_aranges  0x00000000      0x5e8
  *(.debug_aranges)
  .debug_aranges
-                0x00000000       0x20 Commands/testCommand1.o
+                0x00000000       0x38 Commands/testCommand1.o
  .debug_aranges
-                0x00000020       0x38 CountersAndTimers.o
+                0x00000038       0x38 CountersAndTimers.o
  .debug_aranges
-                0x00000058       0x58 Drivers/ADC2518.o
+                0x00000070       0x58 Drivers/ADC2518.o
  .debug_aranges
-                0x000000b0       0x50 Drivers/ADC_uC.o
+                0x000000c8       0x50 Drivers/ADC_uC.o
  .debug_aranges
-                0x00000100       0x50 Drivers/NPA700.o
+                0x00000118       0x50 Drivers/NPA700.o
  .debug_aranges
-                0x00000150       0x38 Drivers/RH_T.o
+                0x00000168       0x38 Drivers/RH_T.o
  .debug_aranges
-                0x00000188       0x30 Drivers/spi_ADC2518.o
+                0x000001a0       0x30 Drivers/spi_ADC2518.o
  .debug_aranges
-                0x000001b8       0xf0 Drivers/EnablesAndCSs.o
+                0x000001d0       0xf0 Drivers/EnablesAndCSs.o
  .debug_aranges
-                0x000002a8       0x20 Drivers/FLASH_Driver.o
+                0x000002c0       0x90 Drivers/FLASH_Driver.o
  .debug_aranges
-                0x000002c8       0x30 Drivers/RTC.o
+                0x00000350       0x30 Drivers/RTC.o
  .debug_aranges
-                0x000002f8       0x58 Drivers/spi.o
+                0x00000380       0x58 Drivers/spi.o
  .debug_aranges
-                0x00000350       0x48 Drivers/spi_DACs.o
+                0x000003d8       0x48 Drivers/spi_DACs.o
  .debug_aranges
-                0x00000398       0x58 Drivers/spi_FRAM.o
+                0x00000420       0x58 Drivers/spi_FRAM.o
  .debug_aranges
-                0x000003f0       0x28 Drivers/spi_RTC.o
+                0x00000478       0x28 Drivers/spi_RTC.o
  .debug_aranges
-                0x00000418       0x28 Drivers/TWI_MUX.o
+                0x000004a0       0x28 Drivers/TWI_MUX.o
  .debug_aranges
-                0x00000440       0x50 Drivers/twi_utils.o
+                0x000004c8       0x50 Drivers/twi_utils.o
  .debug_aranges
-                0x00000490       0x30 Initialize.o
+                0x00000518       0x30 Initialize.o
  .debug_aranges
-                0x000004c0       0x20 main.o
+                0x00000548       0x20 main.o
  .debug_aranges
-                0x000004e0       0x80 uart.o
+                0x00000568       0x80 uart.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x550b
+.debug_info     0x00000000     0x6238
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0xbbc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_info    0x00000bbc      0x6de Commands/testCommand1.o
- .debug_info    0x0000129a      0x17d CountersAndTimers.o
- .debug_info    0x00001417      0x358 Drivers/ADC2518.o
- .debug_info    0x0000176f      0x40a Drivers/ADC_uC.o
- .debug_info    0x00001b79      0x430 Drivers/NPA700.o
- .debug_info    0x00001fa9      0x3e3 Drivers/RH_T.o
- .debug_info    0x0000238c      0x2c2 Drivers/spi_ADC2518.o
- .debug_info    0x0000264e      0x32e Drivers/EnablesAndCSs.o
- .debug_info    0x0000297c      0x14e Drivers/FLASH_Driver.o
- .debug_info    0x00002aca      0x37a Drivers/RTC.o
- .debug_info    0x00002e44      0x2ee Drivers/spi.o
- .debug_info    0x00003132      0x553 Drivers/spi_DACs.o
- .debug_info    0x00003685      0x521 Drivers/spi_FRAM.o
- .debug_info    0x00003ba6      0x1d0 Drivers/spi_RTC.o
- .debug_info    0x00003d76      0x21a Drivers/TWI_MUX.o
- .debug_info    0x00003f90      0x5fc Drivers/twi_utils.o
- .debug_info    0x0000458c      0x402 Initialize.o
- .debug_info    0x0000498e      0x33f main.o
- .debug_info    0x00004ccd      0x83e uart.o
+ .debug_info    0x00000bbc      0x92e Commands/testCommand1.o
+ .debug_info    0x000014ea      0x17d CountersAndTimers.o
+ .debug_info    0x00001667      0x358 Drivers/ADC2518.o
+ .debug_info    0x000019bf      0x40a Drivers/ADC_uC.o
+ .debug_info    0x00001dc9      0x430 Drivers/NPA700.o
+ .debug_info    0x000021f9      0x3e3 Drivers/RH_T.o
+ .debug_info    0x000025dc      0x2c2 Drivers/spi_ADC2518.o
+ .debug_info    0x0000289e      0x32e Drivers/EnablesAndCSs.o
+ .debug_info    0x00002bcc      0xc2b Drivers/FLASH_Driver.o
+ .debug_info    0x000037f7      0x37a Drivers/RTC.o
+ .debug_info    0x00003b71      0x2ee Drivers/spi.o
+ .debug_info    0x00003e5f      0x553 Drivers/spi_DACs.o
+ .debug_info    0x000043b2      0x521 Drivers/spi_FRAM.o
+ .debug_info    0x000048d3      0x1d0 Drivers/spi_RTC.o
+ .debug_info    0x00004aa3      0x21a Drivers/TWI_MUX.o
+ .debug_info    0x00004cbd      0x5fc Drivers/twi_utils.o
+ .debug_info    0x000052b9      0x402 Initialize.o
+ .debug_info    0x000056bb      0x33f main.o
+ .debug_info    0x000059fa      0x83e uart.o
 
-.debug_abbrev   0x00000000     0x2422
+.debug_abbrev   0x00000000     0x25e3
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0xb1a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_abbrev  0x00000b1a      0x12c Commands/testCommand1.o
- .debug_abbrev  0x00000c46       0xba CountersAndTimers.o
- .debug_abbrev  0x00000d00      0x110 Drivers/ADC2518.o
- .debug_abbrev  0x00000e10      0x1b9 Drivers/ADC_uC.o
- .debug_abbrev  0x00000fc9      0x196 Drivers/NPA700.o
- .debug_abbrev  0x0000115f      0x1b2 Drivers/RH_T.o
- .debug_abbrev  0x00001311       0xef Drivers/spi_ADC2518.o
- .debug_abbrev  0x00001400       0xc2 Drivers/EnablesAndCSs.o
- .debug_abbrev  0x000014c2       0xba Drivers/FLASH_Driver.o
- .debug_abbrev  0x0000157c      0x11a Drivers/RTC.o
- .debug_abbrev  0x00001696      0x10a Drivers/spi.o
- .debug_abbrev  0x000017a0      0x102 Drivers/spi_DACs.o
- .debug_abbrev  0x000018a2      0x164 Drivers/spi_FRAM.o
- .debug_abbrev  0x00001a06       0xa3 Drivers/spi_RTC.o
- .debug_abbrev  0x00001aa9      0x103 Drivers/TWI_MUX.o
- .debug_abbrev  0x00001bac      0x27e Drivers/twi_utils.o
- .debug_abbrev  0x00001e2a      0x1fc Initialize.o
- .debug_abbrev  0x00002026      0x112 main.o
- .debug_abbrev  0x00002138      0x2ea uart.o
+ .debug_abbrev  0x00000b1a      0x191 Commands/testCommand1.o
+ .debug_abbrev  0x00000cab       0xba CountersAndTimers.o
+ .debug_abbrev  0x00000d65      0x110 Drivers/ADC2518.o
+ .debug_abbrev  0x00000e75      0x1b9 Drivers/ADC_uC.o
+ .debug_abbrev  0x0000102e      0x196 Drivers/NPA700.o
+ .debug_abbrev  0x000011c4      0x1b2 Drivers/RH_T.o
+ .debug_abbrev  0x00001376       0xef Drivers/spi_ADC2518.o
+ .debug_abbrev  0x00001465       0xc2 Drivers/EnablesAndCSs.o
+ .debug_abbrev  0x00001527      0x216 Drivers/FLASH_Driver.o
+ .debug_abbrev  0x0000173d      0x11a Drivers/RTC.o
+ .debug_abbrev  0x00001857      0x10a Drivers/spi.o
+ .debug_abbrev  0x00001961      0x102 Drivers/spi_DACs.o
+ .debug_abbrev  0x00001a63      0x164 Drivers/spi_FRAM.o
+ .debug_abbrev  0x00001bc7       0xa3 Drivers/spi_RTC.o
+ .debug_abbrev  0x00001c6a      0x103 Drivers/TWI_MUX.o
+ .debug_abbrev  0x00001d6d      0x27e Drivers/twi_utils.o
+ .debug_abbrev  0x00001feb      0x1fc Initialize.o
+ .debug_abbrev  0x000021e7      0x112 main.o
+ .debug_abbrev  0x000022f9      0x2ea uart.o
 
-.debug_line     0x00000000     0x3299
+.debug_line     0x00000000     0x392d
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x1fa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_line    0x000001fa      0x503 Commands/testCommand1.o
- .debug_line    0x000006fd      0x171 CountersAndTimers.o
- .debug_line    0x0000086e      0x235 Drivers/ADC2518.o
- .debug_line    0x00000aa3      0x2cd Drivers/ADC_uC.o
- .debug_line    0x00000d70      0x2bf Drivers/NPA700.o
- .debug_line    0x0000102f      0x242 Drivers/RH_T.o
- .debug_line    0x00001271      0x192 Drivers/spi_ADC2518.o
- .debug_line    0x00001403      0x2fd Drivers/EnablesAndCSs.o
- .debug_line    0x00001700      0x113 Drivers/FLASH_Driver.o
- .debug_line    0x00001813      0x1be Drivers/RTC.o
- .debug_line    0x000019d1      0x273 Drivers/spi.o
- .debug_line    0x00001c44      0x284 Drivers/spi_DACs.o
- .debug_line    0x00001ec8      0x29f Drivers/spi_FRAM.o
- .debug_line    0x00002167      0x120 Drivers/spi_RTC.o
- .debug_line    0x00002287      0x17a Drivers/TWI_MUX.o
- .debug_line    0x00002401      0x475 Drivers/twi_utils.o
- .debug_line    0x00002876      0x255 Initialize.o
- .debug_line    0x00002acb      0x191 main.o
- .debug_line    0x00002c5c      0x63d uart.o
+ .debug_line    0x000001fa      0x648 Commands/testCommand1.o
+ .debug_line    0x00000842      0x171 CountersAndTimers.o
+ .debug_line    0x000009b3      0x235 Drivers/ADC2518.o
+ .debug_line    0x00000be8      0x2cd Drivers/ADC_uC.o
+ .debug_line    0x00000eb5      0x2bf Drivers/NPA700.o
+ .debug_line    0x00001174      0x242 Drivers/RH_T.o
+ .debug_line    0x000013b6      0x192 Drivers/spi_ADC2518.o
+ .debug_line    0x00001548      0x2fd Drivers/EnablesAndCSs.o
+ .debug_line    0x00001845      0x662 Drivers/FLASH_Driver.o
+ .debug_line    0x00001ea7      0x1be Drivers/RTC.o
+ .debug_line    0x00002065      0x273 Drivers/spi.o
+ .debug_line    0x000022d8      0x284 Drivers/spi_DACs.o
+ .debug_line    0x0000255c      0x29f Drivers/spi_FRAM.o
+ .debug_line    0x000027fb      0x120 Drivers/spi_RTC.o
+ .debug_line    0x0000291b      0x17a Drivers/TWI_MUX.o
+ .debug_line    0x00002a95      0x475 Drivers/twi_utils.o
+ .debug_line    0x00002f0a      0x255 Initialize.o
+ .debug_line    0x0000315f      0x191 main.o
+ .debug_line    0x000032f0      0x63d uart.o
 
-.debug_frame    0x00000000      0xf04
+.debug_frame    0x00000000     0x12a0
  *(.debug_frame)
- .debug_frame   0x00000000       0x9c Commands/testCommand1.o
- .debug_frame   0x0000009c       0x7c CountersAndTimers.o
- .debug_frame   0x00000118      0x104 Drivers/ADC2518.o
- .debug_frame   0x0000021c      0x154 Drivers/ADC_uC.o
- .debug_frame   0x00000370       0xd8 Drivers/NPA700.o
- .debug_frame   0x00000448       0x78 Drivers/RH_T.o
- .debug_frame   0x000004c0       0x88 Drivers/spi_ADC2518.o
- .debug_frame   0x00000548      0x1c4 Drivers/EnablesAndCSs.o
- .debug_frame   0x0000070c       0x44 Drivers/FLASH_Driver.o
- .debug_frame   0x00000750       0x84 Drivers/RTC.o
- .debug_frame   0x000007d4       0xb4 Drivers/spi.o
- .debug_frame   0x00000888      0x104 Drivers/spi_DACs.o
- .debug_frame   0x0000098c      0x120 Drivers/spi_FRAM.o
- .debug_frame   0x00000aac       0x5c Drivers/spi_RTC.o
- .debug_frame   0x00000b08       0x54 Drivers/TWI_MUX.o
- .debug_frame   0x00000b5c      0x130 Drivers/twi_utils.o
- .debug_frame   0x00000c8c       0x50 Initialize.o
- .debug_frame   0x00000cdc       0x24 main.o
- .debug_frame   0x00000d00      0x204 uart.o
+ .debug_frame   0x00000000      0x124 Commands/testCommand1.o
+ .debug_frame   0x00000124       0x7c CountersAndTimers.o
+ .debug_frame   0x000001a0      0x104 Drivers/ADC2518.o
+ .debug_frame   0x000002a4      0x154 Drivers/ADC_uC.o
+ .debug_frame   0x000003f8       0xd8 Drivers/NPA700.o
+ .debug_frame   0x000004d0       0x78 Drivers/RH_T.o
+ .debug_frame   0x00000548       0x88 Drivers/spi_ADC2518.o
+ .debug_frame   0x000005d0      0x1c4 Drivers/EnablesAndCSs.o
+ .debug_frame   0x00000794      0x358 Drivers/FLASH_Driver.o
+ .debug_frame   0x00000aec       0x84 Drivers/RTC.o
+ .debug_frame   0x00000b70       0xb4 Drivers/spi.o
+ .debug_frame   0x00000c24      0x104 Drivers/spi_DACs.o
+ .debug_frame   0x00000d28      0x120 Drivers/spi_FRAM.o
+ .debug_frame   0x00000e48       0x5c Drivers/spi_RTC.o
+ .debug_frame   0x00000ea4       0x54 Drivers/TWI_MUX.o
+ .debug_frame   0x00000ef8      0x130 Drivers/twi_utils.o
+ .debug_frame   0x00001028       0x50 Initialize.o
+ .debug_frame   0x00001078       0x24 main.o
+ .debug_frame   0x0000109c      0x204 uart.o
 
-.debug_str      0x00000000     0x12fd
+.debug_str      0x00000000     0x155c
  *(.debug_str)
  .debug_str     0x00000000      0x3e6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/2.0.401/gcc/dev/atmega2560/avr6/crtatmega2560.o
- .debug_str     0x000003e6      0x441 Commands/testCommand1.o
-                                0x47f (size before relaxing)
- .debug_str     0x00000827       0x81 CountersAndTimers.o
+ .debug_str     0x000003e6      0x4b6 Commands/testCommand1.o
+                                0x4fc (size before relaxing)
+ .debug_str     0x0000089c       0xde CountersAndTimers.o
                                 0x222 (size before relaxing)
- .debug_str     0x000008a8       0xc7 Drivers/ADC2518.o
+ .debug_str     0x0000097a       0xbe Drivers/ADC2518.o
                                 0x2b4 (size before relaxing)
- .debug_str     0x0000096f      0x12f Drivers/ADC_uC.o
+ .debug_str     0x00000a38      0x12f Drivers/ADC_uC.o
                                 0x33f (size before relaxing)
- .debug_str     0x00000a9e      0x119 Drivers/NPA700.o
+ .debug_str     0x00000b67      0x119 Drivers/NPA700.o
                                 0x2ec (size before relaxing)
- .debug_str     0x00000bb7       0x48 Drivers/RH_T.o
+ .debug_str     0x00000c80       0x48 Drivers/RH_T.o
                                 0x27b (size before relaxing)
- .debug_str     0x00000bff       0x50 Drivers/spi_ADC2518.o
+ .debug_str     0x00000cc8       0x50 Drivers/spi_ADC2518.o
                                 0x227 (size before relaxing)
- .debug_str     0x00000c4f       0xd4 Drivers/EnablesAndCSs.o
+ .debug_str     0x00000d18       0xd4 Drivers/EnablesAndCSs.o
                                 0x32a (size before relaxing)
- .debug_str     0x00000d23       0x1f Drivers/FLASH_Driver.o
-                                0x1ed (size before relaxing)
- .debug_str     0x00000d42       0xd2 Drivers/RTC.o
+ .debug_str     0x00000dec      0x1db Drivers/FLASH_Driver.o
+                                0x3f4 (size before relaxing)
+ .debug_str     0x00000fc7       0xc9 Drivers/RTC.o
                                 0x2a6 (size before relaxing)
- .debug_str     0x00000e14       0x9a Drivers/spi.o
+ .debug_str     0x00001090       0x89 Drivers/spi.o
                                 0x2a7 (size before relaxing)
- .debug_str     0x00000eae       0x27 Drivers/spi_DACs.o
+ .debug_str     0x00001119       0x27 Drivers/spi_DACs.o
                                 0x2b8 (size before relaxing)
- .debug_str     0x00000ed5       0x40 Drivers/spi_FRAM.o
+ .debug_str     0x00001140       0x40 Drivers/spi_FRAM.o
                                 0x2d4 (size before relaxing)
- .debug_str     0x00000f15       0x15 Drivers/spi_RTC.o
+ .debug_str     0x00001180       0x15 Drivers/spi_RTC.o
                                 0x206 (size before relaxing)
- .debug_str     0x00000f2a       0x3c Drivers/TWI_MUX.o
+ .debug_str     0x00001195       0x3c Drivers/TWI_MUX.o
                                 0x229 (size before relaxing)
- .debug_str     0x00000f66       0xfe Drivers/twi_utils.o
+ .debug_str     0x000011d1       0xf2 Drivers/twi_utils.o
                                 0x318 (size before relaxing)
- .debug_str     0x00001064       0x78 Initialize.o
+ .debug_str     0x000012c3       0x78 Initialize.o
                                 0x340 (size before relaxing)
- .debug_str     0x000010dc       0xdf main.o
+ .debug_str     0x0000133b       0xdf main.o
                                 0x377 (size before relaxing)
- .debug_str     0x000011bb      0x142 uart.o
+ .debug_str     0x0000141a      0x142 uart.o
                                 0x3bd (size before relaxing)
 
-.debug_loc      0x00000000     0x2beb
+.debug_loc      0x00000000     0x3f03
  *(.debug_loc)
- .debug_loc     0x00000000      0x27c Commands/testCommand1.o
- .debug_loc     0x0000027c       0x85 CountersAndTimers.o
- .debug_loc     0x00000301      0x37e Drivers/ADC2518.o
- .debug_loc     0x0000067f      0x422 Drivers/ADC_uC.o
- .debug_loc     0x00000aa1      0x284 Drivers/NPA700.o
- .debug_loc     0x00000d25       0xee Drivers/RH_T.o
- .debug_loc     0x00000e13      0x286 Drivers/spi_ADC2518.o
- .debug_loc     0x00001099       0x8a Drivers/FLASH_Driver.o
- .debug_loc     0x00001123      0x12c Drivers/RTC.o
- .debug_loc     0x0000124f      0x22d Drivers/spi.o
- .debug_loc     0x0000147c      0x33a Drivers/spi_DACs.o
- .debug_loc     0x000017b6      0x3f0 Drivers/spi_FRAM.o
- .debug_loc     0x00001ba6      0x1a8 Drivers/spi_RTC.o
- .debug_loc     0x00001d4e      0x109 Drivers/TWI_MUX.o
- .debug_loc     0x00001e57      0x653 Drivers/twi_utils.o
- .debug_loc     0x000024aa       0x53 Initialize.o
- .debug_loc     0x000024fd      0x6ee uart.o
+ .debug_loc     0x00000000      0x45c Commands/testCommand1.o
+ .debug_loc     0x0000045c       0x85 CountersAndTimers.o
+ .debug_loc     0x000004e1      0x37e Drivers/ADC2518.o
+ .debug_loc     0x0000085f      0x422 Drivers/ADC_uC.o
+ .debug_loc     0x00000c81      0x284 Drivers/NPA700.o
+ .debug_loc     0x00000f05       0xee Drivers/RH_T.o
+ .debug_loc     0x00000ff3      0x286 Drivers/spi_ADC2518.o
+ .debug_loc     0x00001279     0x11c2 Drivers/FLASH_Driver.o
+ .debug_loc     0x0000243b      0x12c Drivers/RTC.o
+ .debug_loc     0x00002567      0x22d Drivers/spi.o
+ .debug_loc     0x00002794      0x33a Drivers/spi_DACs.o
+ .debug_loc     0x00002ace      0x3f0 Drivers/spi_FRAM.o
+ .debug_loc     0x00002ebe      0x1a8 Drivers/spi_RTC.o
+ .debug_loc     0x00003066      0x109 Drivers/TWI_MUX.o
+ .debug_loc     0x0000316f      0x653 Drivers/twi_utils.o
+ .debug_loc     0x000037c2       0x53 Initialize.o
+ .debug_loc     0x00003815      0x6ee uart.o
 
 .debug_macinfo
  *(.debug_macinfo)
@@ -1619,27 +1716,27 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000      0x460
+.debug_ranges   0x00000000      0x568
  *(.debug_ranges)
- .debug_ranges  0x00000000       0x10 Commands/testCommand1.o
- .debug_ranges  0x00000010       0x28 CountersAndTimers.o
- .debug_ranges  0x00000038       0x48 Drivers/ADC2518.o
- .debug_ranges  0x00000080       0x40 Drivers/ADC_uC.o
- .debug_ranges  0x000000c0       0x40 Drivers/NPA700.o
- .debug_ranges  0x00000100       0x28 Drivers/RH_T.o
- .debug_ranges  0x00000128       0x20 Drivers/spi_ADC2518.o
- .debug_ranges  0x00000148       0xe0 Drivers/EnablesAndCSs.o
- .debug_ranges  0x00000228       0x10 Drivers/FLASH_Driver.o
- .debug_ranges  0x00000238       0x20 Drivers/RTC.o
- .debug_ranges  0x00000258       0x60 Drivers/spi.o
- .debug_ranges  0x000002b8       0x38 Drivers/spi_DACs.o
- .debug_ranges  0x000002f0       0x48 Drivers/spi_FRAM.o
- .debug_ranges  0x00000338       0x18 Drivers/spi_RTC.o
- .debug_ranges  0x00000350       0x18 Drivers/TWI_MUX.o
- .debug_ranges  0x00000368       0x58 Drivers/twi_utils.o
- .debug_ranges  0x000003c0       0x20 Initialize.o
- .debug_ranges  0x000003e0       0x10 main.o
- .debug_ranges  0x000003f0       0x70 uart.o
+ .debug_ranges  0x00000000       0x88 Commands/testCommand1.o
+ .debug_ranges  0x00000088       0x28 CountersAndTimers.o
+ .debug_ranges  0x000000b0       0x48 Drivers/ADC2518.o
+ .debug_ranges  0x000000f8       0x40 Drivers/ADC_uC.o
+ .debug_ranges  0x00000138       0x40 Drivers/NPA700.o
+ .debug_ranges  0x00000178       0x28 Drivers/RH_T.o
+ .debug_ranges  0x000001a0       0x20 Drivers/spi_ADC2518.o
+ .debug_ranges  0x000001c0       0xe0 Drivers/EnablesAndCSs.o
+ .debug_ranges  0x000002a0       0xa0 Drivers/FLASH_Driver.o
+ .debug_ranges  0x00000340       0x20 Drivers/RTC.o
+ .debug_ranges  0x00000360       0x60 Drivers/spi.o
+ .debug_ranges  0x000003c0       0x38 Drivers/spi_DACs.o
+ .debug_ranges  0x000003f8       0x48 Drivers/spi_FRAM.o
+ .debug_ranges  0x00000440       0x18 Drivers/spi_RTC.o
+ .debug_ranges  0x00000458       0x18 Drivers/TWI_MUX.o
+ .debug_ranges  0x00000470       0x58 Drivers/twi_utils.o
+ .debug_ranges  0x000004c8       0x20 Initialize.o
+ .debug_ranges  0x000004e8       0x10 main.o
+ .debug_ranges  0x000004f8       0x70 uart.o
 
 .debug_macro
  *(.debug_macro)
