@@ -1,8 +1,8 @@
 /*
  * FLASH_Driver.c
  *
- * Created: 7/13/2023 5:02:42 PM
- *  Author: greg
+ * Created: 8/26/2023 5:02:42 PM
+ *  Author: Robin
  */ 
 
 #include <avr/io.h>#include <avr/pgmspace.h>#include <stdio.h>#include <stdbool.h>#include "EnablesAndCSs.h"#include "Globals.h"#include "spi.h"//					              BYTES: Address, Dummy, Data					#define FLASH_RESET 0xFF            //   0,0,0#define FLASH_GET_FEATURES 0x0F     //   1,0,1#define FLASH_SET_FEATURES 0x1F     //   1,0,1 #define FLASH_READ_ID      0x9F     //   0,1,2 #define FLASH_PAGE_READ    0x13     //   3,0,0  Array read#define FLASH_READ_PAGE_CACHE_RANDOM    0x30  // 3,0,0, byte read#define FLASH_READ_PAGE_CACHE_LAST      0x3F  // 0,0,0, byte read#define FLASH_READ_FROM_CACHEx1			0x03// or 0x0B  2,1, 1-2176#define FLASH_READ_FROM_CACHEx2			0x3B//2,1, 1-2176#define FLASH_READ_FROM_CACHEx4			0x6B//2,1, 1-2176#define FLASH_READ_FROM_CACHE_DUAL_IO	0xBB//2,1, 1-2176#define FLASH_READ_FROM_CACHE_QUAD_IO	0xEB//2,2, 1-2176#define FLASH_WRITE_ENABLE              0x06// 0,0,0
