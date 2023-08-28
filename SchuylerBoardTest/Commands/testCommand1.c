@@ -86,6 +86,9 @@ void processCommand(void)
 			if (  buf[1] == 'w' ) doFlashWriteTest();
 			else if (  buf[1] == 'r' ) doFlashReadTest();
 			else if (  buf[1] == 'e' ) doFlashEraseTest();
+			else if (  buf[1] == 'u' ) spi_FlashUnlockAllBlocks();
+			else if (  buf[1] == 's' ) spi_FlashDisplayFeatureRegisters();			
+			else if (  buf[1] == 'x' ) spi_FlashReset();			
 /*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
