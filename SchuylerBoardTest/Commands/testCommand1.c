@@ -126,6 +126,7 @@ void processCommand(void)
 
 #define WRITE_TEST_SIZE 200
 #define NUM_WRITES 10
+#define SOURCE_STR_SIZE 10
 
 void doFlashWriteTest(void)
 {
@@ -137,7 +138,7 @@ void doFlashWriteTest(void)
 	for (uint8_t i = 0; i < NUM_WRITES; i++)
 	{
 		for (uint8_t j = 0; j < WRITE_TEST_SIZE; j++)
-			buffer[j] = testChars[i];
+			buffer[j] = testChars[j % SOURCE_STR_SIZE];
 		if (spi_FlashWrite(address, buff, WRITE_TEST_SIZE) != WRITE_TEST_SIZE)
 		{
 			printf_P(PSTR("FLASH write failed\n"));
@@ -178,3 +179,4 @@ void doFlashEraseTest(void)
 	spi_FlashEraseAllBlocks();
 	
 }
+
