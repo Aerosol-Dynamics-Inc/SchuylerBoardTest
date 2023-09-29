@@ -24,6 +24,7 @@
 #include "RH_T.h"
 #include "TWI_MUX.h"
 #include "uart.h"
+#include "majorGeneral.h"
 
 uint8_t i=1;
 
@@ -46,7 +47,9 @@ uint8_t i=1;
 void doFlashWriteTest(void);
 void doFlashReadTest(void);
 void doFlashEraseTest(void);
-
+void doFlashTestReadAll(void);
+uint8_t spi_FlashReadFromPage(uint32_t paddress, uint16_t address, uint8_t* buffer, uint8_t nbytes);void printSong(void);
+
 void processCommand(void)
 {
 		// else
@@ -84,11 +87,14 @@ void processCommand(void)
 		else if (buf[0] == 'F') {		
 			spi_FlashReadID();
 			if (  buf[1] == 'w' ) doFlashWriteTest();
+			else if (  buf[1] == 'i' ) spi_FlashInitialize();
 			else if (  buf[1] == 'r' ) doFlashReadTest();
+			else if (  buf[1] == 'a' ) doFlashTestReadAll();
 			else if (  buf[1] == 'e' ) doFlashEraseTest();
 			else if (  buf[1] == 'u' ) spi_FlashUnlockAllBlocks();
 			else if (  buf[1] == 's' ) spi_FlashDisplayFeatureRegisters();			
-			else if (  buf[1] == 'x' ) spi_FlashReset();			
+			else if (  buf[1] == 'x' ) spi_FlashReset();
+			else if (  buf[1] == 'p' ) printSong();
 /*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
@@ -180,3 +186,53 @@ void doFlashEraseTest(void)
 	
 }
 
+#define FLASH_TEST_BUFF_SIZE 16
+
+
+#define FLASH_MAX_NUM_BLOCKS			2048#define FLASH_MAX_BAD_BLOCKS			40#define FLASH_PAGES_PER_BLOCK			64#define FLASH_PAGE_MAX_BYTES			2048#define FLASH_PAGE_FIRST_SPAREAREA_BYTE 2048#define FLASH_NUM_SPARE_AREA_BYTES		128
+void doFlashTestReadAll(void)
+{
+	uint16_t block;
+	uint32_t page;
+	uint16_t baddr;
+	uint8_t buff[FLASH_TEST_BUFF_SIZE];
+	
+	for (block = 0; block < FLASH_MAX_NUM_BLOCKS; block++)
+	{
+		page = block * FLASH_PAGES_PER_BLOCK;
+		for (page = block * FLASH_PAGES_PER_BLOCK; page < ((block + 1) * FLASH_PAGES_PER_BLOCK); page++)
+		{
+			printf("\nB= 0x%04x P= 0x%08lx:", block, page);
+			for (baddr = 0; baddr < (FLASH_PAGE_MAX_BYTES + FLASH_NUM_SPARE_AREA_BYTES); baddr += FLASH_TEST_BUFF_SIZE)
+			{
+				if (spi_FlashReadFromPage(page, baddr, buff, FLASH_TEST_BUFF_SIZE) != FLASH_TEST_BUFF_SIZE)
+				{
+					printf("Bad read at 0x%04x ", baddr);
+				}
+				else
+				{
+					for (int i = 0; i < FLASH_TEST_BUFF_SIZE; i++)
+					{
+						//printf(" %02x", buff[i]);
+						if (buff[i] == 0)
+						{
+							printf("Found 00 at 0x%04x ", baddr+i);
+						}
+					}
+				}
+			}	
+		}
+	}	
+}
+
+void printSong(void)
+{
+	char buff[MAJORGENERAL_LINE_MAX];
+	
+	for (int i = 0; i < majorGeneral_num_lines(); i++)
+	{
+		majorGeneral_get_line(i, buff);
+		printf("%s",buff);
+
+	}
+}

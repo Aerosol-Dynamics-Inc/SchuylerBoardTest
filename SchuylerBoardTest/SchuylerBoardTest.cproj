@@ -270,6 +270,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="majorGeneral.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="majorGeneral.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="uart.c">
       <SubType>compile</SubType>
     </Compile>

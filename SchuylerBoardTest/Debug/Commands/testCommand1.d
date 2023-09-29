@@ -23,7 +23,8 @@ Commands/testCommand1.d Commands/testCommand1.o: \
  ../Drivers/Include/NPA700.h ../Drivers/Include/Ports.h \
  ../Drivers/Include/RTC.h ../Drivers/Include/spi_ADC2518.h \
  ../Drivers/Include/spi_FRAM.h ../Drivers/Include/spi_DACs.h \
- ../Drivers/Include/RH_T.h ../Drivers/Include/TWI_MUX.h ../uart.h
+ ../Drivers/Include/RH_T.h ../Drivers/Include/TWI_MUX.h ../uart.h \
+ ../majorGeneral.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\stdio.h:
 
@@ -90,3 +91,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 ../Drivers/Include/TWI_MUX.h:
 
 ../uart.h:
+
+../majorGeneral.h:

@@ -9,6 +9,7 @@
 #ifndef FLASH_DRIVER_H_
 #define FLASH_DRIVER_H_
 
+uint8_t spi_FlashInitialize(void);
 void spi_FlashReadID(void);
 uint8_t spi_FlashWrite(uint32_t address, uint8_t *buffer,  uint8_t numBytes);
 uint8_t spi_FlashRead(uint32_t address, uint8_t *buffer,  uint8_t numBytes);uint8_t spi_FlashEraseAllBlocks();void spi_FlashUnlockAllBlocks(void);void spi_FlashDisplayFeatureRegisters(void);uint8_t spi_FlashReset(void);
