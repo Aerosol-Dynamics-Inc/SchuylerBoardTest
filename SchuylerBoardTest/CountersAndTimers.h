@@ -15,6 +15,7 @@ void init_CountersIimers(void);
 //extern volatile uint8_t timer2Flag;
 extern volatile uint8_t oneSecFlag, halfSecFlag;
 extern volatile uint16_t ms_twiCount;
+extern volatile uint16_t counter1024Hz;
 
 
 #endif /* COUNTERSANDTIMERS_H_ */

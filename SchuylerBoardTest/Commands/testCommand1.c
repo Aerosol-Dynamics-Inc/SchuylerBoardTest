@@ -26,6 +26,8 @@
 #include "uart.h"
 #include "majorGeneral.h"
 
+#pragma GCC push_options
+#pragma GCC optimize ("O0")
 uint8_t i=1;
 
  /*
@@ -48,7 +50,11 @@ void doFlashWriteTest(void);
 void doFlashReadTest(void);
 void doFlashEraseTest(void);
 void doFlashTestReadAll(void);
-uint8_t spi_FlashReadFromPage(uint32_t paddress, uint16_t address, uint8_t* buffer, uint8_t nbytes);void printSong(void);
+void printSong(void);
+void testRandomWR(void);
+void FlashABTest(void);
+void FlashReadBlocksTest(void);
+
 
 void processCommand(void)
 {
@@ -94,7 +100,9 @@ void processCommand(void)
 			else if (  buf[1] == 'u' ) spi_FlashUnlockAllBlocks();
 			else if (  buf[1] == 's' ) spi_FlashDisplayFeatureRegisters();			
 			else if (  buf[1] == 'x' ) spi_FlashReset();
-			else if (  buf[1] == 'p' ) printSong();
+			else if (  buf[1] == 't' ) testRandomWR();
+			else if (  buf[1] == '1' ) FlashABTest();
+			else if (  buf[1] == '2' ) FlashReadBlocksTest();
 /*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
@@ -236,3 +244,114 @@ void printSong(void)
 
 	}
 }
+
+void testRandomWR(void)
+{
+	// test write of records of various lengths, then readback of fixed-length records
+	// checks integrity of write using different writing and reading methods
+	uint8_t buff[MAJORGENERAL_LINE_MAX];
+	uint16_t totalChars = 0;
+	uint16_t block = 5;
+	uint32_t address;
+	uint32_t paddress;
+	uint16_t baddress;
+
+	// write the song to the selected block line by line
+	address = block * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
+	for (int i = 0; i < (60); i++)
+	{
+		majorGeneral_get_line(i, (char *) buff);
+		if (spi_FlashWrite(address, buff,  strlen((char *) buff)) == strlen((char *) buff))
+		{
+			totalChars += strlen((char *) buff);
+			address += strlen((char *) buff);
+		}
+		else
+		{
+			printf("Error writing to addr 0x%08lx, line %d\n",address, i);
+		}
+	}
+	
+	// read back and print the song 16 bytes at a time
+	address = block * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
+	for (int j = 0; j < totalChars; j += 16)
+	{
+		spi_FlashMapAddress(address, &paddress, &baddress);
+		if (spi_FlashReadFromPage(paddress, baddress, buff, 16) == 16)
+		{
+			buff[16] = 0;
+			printf("%s",buff);
+			address += 16;
+		}
+		else
+		{
+			printf("\nread failure at page 0x%08lx, baddr 0x%04x\n", paddress, baddress); 
+		}
+	}
+}
+
+void FlashABTest(void)
+{
+	// test write of A's to 0ne page, B's to next page
+	uint8_t buff[32];
+	uint16_t block = 5;
+	uint16_t bblock;
+	int i;
+	int j;
+	int k;
+
+	for (j=0; j<8; j++)
+	{
+		for( i=0; i<32; i++) buff[i] = (uint8_t) 0;
+		spi_FlashReadFromPage((block * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32);
+		for( i=0; i<32; i++) printf(" %02x",buff[i]);
+		printf("\n");		
+	}
+
+	
+	for( i=0; i<16; i++) buff[i] = (uint8_t) '1';
+	// write to 5 consecutive pages
+	for (i=0; i<5; i++)
+		spi_FlashWriteToPage((block * FLASH_PAGES_PER_BLOCK) + i, 0, buff, 16);
+	//for( i=0; i<16; i++) buff[i] = (uint8_t) 0;
+	//spi_FlashWriteToPage((block * FLASH_PAGES_PER_BLOCK)+1, 0, buff, 16);
+	
+	for (k = -1; k < 2; k++)
+	{
+		bblock = block + k;
+		printf("block %d\n",bblock);
+		for (j=0; j<8; j++)
+		{
+			for( i=0; i<32; i++) buff[i] = (uint8_t) 0;
+			spi_FlashReadFromPage((block * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32);
+			for( i=0; i<32; i++) printf(" %02x",buff[i]);
+			printf("\n");		
+		}
+	}
+	
+	printf("\n\n");
+}
+
+void FlashReadBlocksTest(void)
+{
+	// test write of A's to 0ne page, B's to next page
+	uint8_t buff[32];
+	uint16_t block = 5;
+	uint16_t bblock;
+	int i;
+	int j;
+	int k;
+
+	for (j=5; j<70; j++)
+	{
+		for( i=0; i<32; i++) buff[i] = (uint8_t) 0;
+		spi_FlashReadFromPage(((block) * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32);
+		printf("page 0x%08lx: ",((block) * FLASH_PAGES_PER_BLOCK)+j);
+		for( i=0; i<32; i++) printf(" %02x",buff[i]);
+		printf("\n");		
+	}
+}
+
+
+#pragma GCC pop_options
+

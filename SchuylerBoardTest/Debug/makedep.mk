@@ -12,6 +12,10 @@ Drivers\ADC_uC.c
 
 Drivers\FETS.c
 
+Drivers\LowLevelFlashDriver\spi-nand-base.c
+
+Drivers\LowLevelFlashDriver\spi-nand-cmd.c
+
 Drivers\NPA700.c
 
 Drivers\RH_T.c
