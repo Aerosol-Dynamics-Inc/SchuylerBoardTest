@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <avr/pgmspace.h>#include "ADC_uC.h"
+#include <avr/pgmspace.h>#include <stdbool.h>#include "ADC_uC.h"
 #include "ADC2518.h"
 #include "Globals.h"
 #include "EnablesAndCSs.h"
@@ -103,6 +103,7 @@ void processCommand(void)
 			else if (  buf[1] == 't' ) testRandomWR();
 			else if (  buf[1] == '1' ) FlashABTest();
 			else if (  buf[1] == '2' ) FlashReadBlocksTest();
+			else if (  buf[1] == '3' ) FlashBasicTest();
 /*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
@@ -190,7 +191,7 @@ void doFlashReadTest(void)
 
 void doFlashEraseTest(void)
 {
-	spi_FlashEraseAllBlocks();
+	spi_FlashEraseBlock(0);
 	
 }
 
@@ -208,12 +209,12 @@ void doFlashTestReadAll(void)
 	for (block = 0; block < FLASH_MAX_NUM_BLOCKS; block++)
 	{
 		page = block * FLASH_PAGES_PER_BLOCK;
-		for (page = block * FLASH_PAGES_PER_BLOCK; page < ((block + 1) * FLASH_PAGES_PER_BLOCK); page++)
+		for (page = block * FLASH_PAGES_PER_BLOCK; page < ((block  * FLASH_PAGES_PER_BLOCK) +1); page++)
 		{
 			printf("\nB= 0x%04x P= 0x%08lx:", block, page);
-			for (baddr = 0; baddr < (FLASH_PAGE_MAX_BYTES + FLASH_NUM_SPARE_AREA_BYTES); baddr += FLASH_TEST_BUFF_SIZE)
+			for (baddr = 0; baddr < (FLASH_PAGE_MAX_BYTES); baddr += FLASH_TEST_BUFF_SIZE)
 			{
-				if (spi_FlashReadFromPage(page, baddr, buff, FLASH_TEST_BUFF_SIZE) != FLASH_TEST_BUFF_SIZE)
+				if (spi_FlashReadFromPage(page, baddr, buff, FLASH_TEST_BUFF_SIZE, false) != FLASH_TEST_BUFF_SIZE)
 				{
 					printf("Bad read at 0x%04x ", baddr);
 				}
@@ -228,6 +229,7 @@ void doFlashTestReadAll(void)
 						}
 					}
 				}
+				spi_FlashReset();
 			}	
 		}
 	}	
@@ -251,20 +253,20 @@ void testRandomWR(void)
 	// checks integrity of write using different writing and reading methods
 	uint8_t buff[MAJORGENERAL_LINE_MAX];
 	uint16_t totalChars = 0;
-	uint16_t block = 5;
+	uint16_t block = 0;
 	uint32_t address;
 	uint32_t paddress;
 	uint16_t baddress;
 
 	// write the song to the selected block line by line
 	address = block * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
-	for (int i = 0; i < (60); i++)
+	for (int i = 0; i < majorGeneral_num_lines(); i++)
 	{
 		majorGeneral_get_line(i, (char *) buff);
 		if (spi_FlashWrite(address, buff,  strlen((char *) buff)) == strlen((char *) buff))
 		{
-			totalChars += strlen((char *) buff);
-			address += strlen((char *) buff);
+			totalChars += majorGeneral_get_line_len(i);
+			address += majorGeneral_get_line_len(i);
 		}
 		else
 		{
@@ -277,11 +279,12 @@ void testRandomWR(void)
 	for (int j = 0; j < totalChars; j += 16)
 	{
 		spi_FlashMapAddress(address, &paddress, &baddress);
-		if (spi_FlashReadFromPage(paddress, baddress, buff, 16) == 16)
+		if (spi_FlashReadFromPage(paddress, baddress, buff, 16, false) == 16)
 		{
 			buff[16] = 0;
 			printf("%s",buff);
 			address += 16;
+			spi_FlashReset();
 		}
 		else
 		{
@@ -303,7 +306,7 @@ void FlashABTest(void)
 	for (j=0; j<8; j++)
 	{
 		for( i=0; i<32; i++) buff[i] = (uint8_t) 0;
-		spi_FlashReadFromPage((block * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32);
+		spi_FlashReadFromPage((block * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32, false);
 		for( i=0; i<32; i++) printf(" %02x",buff[i]);
 		printf("\n");		
 	}
@@ -312,7 +315,7 @@ void FlashABTest(void)
 	for( i=0; i<16; i++) buff[i] = (uint8_t) '1';
 	// write to 5 consecutive pages
 	for (i=0; i<5; i++)
-		spi_FlashWriteToPage((block * FLASH_PAGES_PER_BLOCK) + i, 0, buff, 16);
+		spi_FlashWriteToPage((block * FLASH_PAGES_PER_BLOCK) + i, 0, buff, 16, false);
 	//for( i=0; i<16; i++) buff[i] = (uint8_t) 0;
 	//spi_FlashWriteToPage((block * FLASH_PAGES_PER_BLOCK)+1, 0, buff, 16);
 	
@@ -323,7 +326,7 @@ void FlashABTest(void)
 		for (j=0; j<8; j++)
 		{
 			for( i=0; i<32; i++) buff[i] = (uint8_t) 0;
-			spi_FlashReadFromPage((block * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32);
+			spi_FlashReadFromPage((block * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32, false);
 			for( i=0; i<32; i++) printf(" %02x",buff[i]);
 			printf("\n");		
 		}
@@ -332,26 +335,58 @@ void FlashABTest(void)
 	printf("\n\n");
 }
 
+#define TEST_READ_SIZE 32
+
 void FlashReadBlocksTest(void)
 {
 	// test write of A's to 0ne page, B's to next page
-	uint8_t buff[32];
-	uint16_t block = 5;
+	uint8_t buff[TEST_READ_SIZE];
+	uint32_t page = 0;
 	uint16_t bblock;
 	int i;
 	int j;
 	int k;
 
-	for (j=5; j<70; j++)
+	for (j=0; j<FLASH_PAGE_MAX_BYTES; j += TEST_READ_SIZE)
 	{
-		for( i=0; i<32; i++) buff[i] = (uint8_t) 0;
-		spi_FlashReadFromPage(((block) * FLASH_PAGES_PER_BLOCK)+j, 0, buff, 32);
-		printf("page 0x%08lx: ",((block) * FLASH_PAGES_PER_BLOCK)+j);
-		for( i=0; i<32; i++) printf(" %02x",buff[i]);
+		for( i=0; i<TEST_READ_SIZE; i++) buff[i] = (uint8_t) 0;
+		spi_FlashReadFromPage(page, j, buff, TEST_READ_SIZE, false);
+		printf("page 0x%08lx, addr 0x%04x: ", page, j);
+		for( i=0; i<TEST_READ_SIZE; i++) printf("%c",buff[i]);
 		printf("\n");		
 	}
 }
 
+void dumpBuffer(int8_t *buffer, uint8_t len)
+{
+	for( i=0; i<32; i++) printf(" %02x",buffer[i]);
+	printf("\n");		
+}
+void FlashBasicTest(void)
+{
+	uint32_t page = 7;
+	uint16_t byteAddr = 0;
+	uint32_t wholeAddr;
+	uint8_t buffer[32];
+	char testStr[16] = "0123456789ABCDEF";
+
+	wholeAddr = (page * (uint32_t) FLASH_PAGE_MAX_BYTES) + byteAddr;
+	spi_FlashReadFromPage(page, byteAddr, buffer, 32, false);
+	printf("Pre-read: ");
+	dumpBuffer(buffer,32);
+	spi_FlashDisplayFeatureRegisters();
+	spi_FlashUnlockAllBlocks();
+	spi_FlashReset();
+	spi_FlashWriteToPage(page, byteAddr, (uint8_t *) testStr, 16, false);
+	spi_FlashDisplayFeatureRegisters();
+	spi_FlashReset();
+	spi_FlashReadFromPage(page, byteAddr, buffer, 32, false);
+	spi_FlashDisplayFeatureRegisters();
+	spi_FlashReset();
+	printf("Post-read: ");
+	dumpBuffer(buffer,32);
+	
+}
 
 #pragma GCC pop_options
 

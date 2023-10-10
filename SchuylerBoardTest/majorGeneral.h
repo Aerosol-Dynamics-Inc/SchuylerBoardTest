@@ -15,6 +15,8 @@
 uint8_t majorGeneral_max_line(void);
 uint8_t majorGeneral_num_lines(void);
 void majorGeneral_get_line(uint8_t linenum, char* buffer);
+uint16_t majorGeneral_get_line_len(uint8_t linenum);
+
 
 
 

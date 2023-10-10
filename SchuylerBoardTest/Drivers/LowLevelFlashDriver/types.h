@@ -20,7 +20,7 @@ typedef unsigned long u32;
 typedef unsigned long long u64;
 typedef long long loff_t;
 typedef unsigned int size_t;
-typedef int bool;
+//typedef int bool;
 
 typedef unsigned char		u_char;
 typedef unsigned short		u_short;

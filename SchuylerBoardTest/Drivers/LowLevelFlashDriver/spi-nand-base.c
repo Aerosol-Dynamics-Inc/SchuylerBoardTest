@@ -13,7 +13,7 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
-#include <avr/io.h>#include <avr/pgmspace.h>#include <stdio.h>#include <string.h>#include <stdarg.h>#include "spi-nand.h"
+#include <avr/io.h>#include <avr/pgmspace.h>#include <stdio.h>#include <string.h>#include <stdarg.h>#include <stdbool.h>#include "spi-nand.h"
 #include "errno.h"
 #include "external.h"
 
@@ -1066,7 +1066,7 @@ static int spi_nand_do_read_ops(struct spi_nand_chip *chip, loff_t from,
 	int ooblen = (ops->mode == MTD_OPS_AUTO_OOB) ?
 		chip->ecclayout->oobavail : chip->oob_size;
 
-	spi_nand_debug("%s: from = 0x%012llx, len = %i\n",
+	spi_nand_debug("%s: from = 0x%012lx, len = %i\n",
 			 __func__, from, ops->len);
 	/* Do not allow reads past end of device */
 	if (from >= chip->size) {
@@ -1284,7 +1284,9 @@ static int spi_nand_do_read_oob(struct spi_nand_chip *chip, loff_t from,
 	int ret = 0;
 	int lun_num;
 
-	spi_nand_debug("%s: from = 0x%012llx, len = %i\n",
+	//spi_nand_debug("%s: from = 0x%012llx, len = %i\n",
+	//		 __func__, from, readlen);
+	printf("%s: from = 0x%012llx, len = %i\n",
 			 __func__, from, readlen);
 	if (ooboffs >= max_len) {
 		spi_nand_error("%s: attempt to read outside oob\n",

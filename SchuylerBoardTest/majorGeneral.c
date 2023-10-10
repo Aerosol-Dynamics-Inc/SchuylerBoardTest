@@ -104,3 +104,9 @@ const char majorGeneral[MAJORGENERAL_NUM_LINES][MAJORGENERAL_LINE_MAX] PROGMEM =
 	{
 		strcpy_P(buffer, majorGeneral[linenum]);
 	}
+	
+	uint16_t majorGeneral_get_line_len(uint8_t linenum)
+	{
+		
+		return strlen_P(majorGeneral[linenum]);
+	}	
