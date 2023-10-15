@@ -3,3 +3,5 @@
 *.xml
 Debug/
 SchuylerBoardTest/Debug/
+SchuylerBoardTest/Debug/Drivers
+SchuylerBoardTest/Debug/Commands

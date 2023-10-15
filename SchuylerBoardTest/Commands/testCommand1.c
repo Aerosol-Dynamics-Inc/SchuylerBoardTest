@@ -54,7 +54,7 @@ void printSong(void);
 void testRandomWR(void);
 void FlashABTest(void);
 void FlashReadBlocksTest(void);
-
+uint16_t test_block = 0;
 
 void processCommand(void)
 {
@@ -98,12 +98,15 @@ void processCommand(void)
 			else if (  buf[1] == 'a' ) doFlashTestReadAll();
 			else if (  buf[1] == 'e' ) doFlashEraseTest();
 			else if (  buf[1] == 'u' ) spi_FlashUnlockAllBlocks();
-			else if (  buf[1] == 's' ) spi_FlashDisplayFeatureRegisters();			
+			else if (  buf[1] == 'f' ) spi_FlashDisplayFeatureRegisters();			
+			else if (  buf[1] == 's' ) spi_FlashDisplayStatusRegister();
 			else if (  buf[1] == 'x' ) spi_FlashReset();
+			else if (  buf[1] == 'b' ) setTestBlock(buf);
 			else if (  buf[1] == 't' ) testRandomWR();
 			else if (  buf[1] == '1' ) FlashABTest();
 			else if (  buf[1] == '2' ) FlashReadBlocksTest();
 			else if (  buf[1] == '3' ) FlashBasicTest();
+			else if (  buf[1] == '4' ) FlashReadBlocksTest_micron();
 /*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
@@ -143,6 +146,12 @@ void processCommand(void)
 #define NUM_WRITES 10
 #define SOURCE_STR_SIZE 10
 
+void setTestBlock(char *buffer)
+{
+	int b = atoi((const char *)(buffer+3));
+	printf("Changing block to %d\n",b);
+	test_block = b;
+}
 void doFlashWriteTest(void)
 {
 	char* testChars = "0123456789";
@@ -191,7 +200,7 @@ void doFlashReadTest(void)
 
 void doFlashEraseTest(void)
 {
-	spi_FlashEraseBlock(0);
+	spi_FlashEraseBlock(test_block);
 	
 }
 
@@ -206,7 +215,7 @@ void doFlashTestReadAll(void)
 	uint16_t baddr;
 	uint8_t buff[FLASH_TEST_BUFF_SIZE];
 	
-	for (block = 0; block < FLASH_MAX_NUM_BLOCKS; block++)
+	for (block = test_block; block < FLASH_MAX_NUM_BLOCKS; block++)
 	{
 		page = block * FLASH_PAGES_PER_BLOCK;
 		for (page = block * FLASH_PAGES_PER_BLOCK; page < ((block  * FLASH_PAGES_PER_BLOCK) +1); page++)
@@ -249,46 +258,77 @@ void printSong(void)
 
 void testRandomWR(void)
 {
-	// test write of records of various lengths, then readback of fixed-length records
-	// checks integrity of write using different writing and reading methods
+	// test swath of memory by writing song lyrics to continuous memory and reading
+	// them back and comparing 
 	uint8_t buff[MAJORGENERAL_LINE_MAX];
-	uint16_t totalChars = 0;
-	uint16_t block = 0;
+	uint8_t buff2[MAJORGENERAL_LINE_MAX];
+	uint16_t startblock = test_block;
+	uint32_t testLength;
 	uint32_t address;
-	uint32_t paddress;
-	uint16_t baddress;
+	uint32_t amountWritten = 0;
+	uint32_t amountRead = 0;
+	int songline = 0;
+	int linelen;
 
 	// write the song to the selected block line by line
-	address = block * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
-	for (int i = 0; i < majorGeneral_num_lines(); i++)
+	testLength = (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
+	address = startblock * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
+	while (amountWritten < testLength)
 	{
-		majorGeneral_get_line(i, (char *) buff);
-		if (spi_FlashWrite(address, buff,  strlen((char *) buff)) == strlen((char *) buff))
+		linelen = majorGeneral_get_line_len(songline);
+		if ((amountWritten + linelen) > testLength)
+			break;
+		majorGeneral_get_line(songline++, (char *) buff);
+		if (spi_FlashWrite(address, buff,  strlen((char *) buff)) == linelen)
 		{
-			totalChars += majorGeneral_get_line_len(i);
-			address += majorGeneral_get_line_len(i);
+			printf("Wrote to to addr 0x%08lx: %s\n",address, (char *) buff);
+			spi_FlashDisplayStatusRegister();			amountWritten += linelen;
+			address += linelen;
+			if (songline >= majorGeneral_num_lines())
+				songline = 0;
 		}
 		else
 		{
-			printf("Error writing to addr 0x%08lx, line %d\n",address, i);
+			printf("Error writing to addr 0x%08lx, line %d\n",address, linelen);
+			amountWritten += linelen;
+			address += linelen;
+			if (songline >= majorGeneral_num_lines())
+				songline = 0;
 		}
 	}
-	
-	// read back and print the song 16 bytes at a time
-	address = block * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
-	for (int j = 0; j < totalChars; j += 16)
+	// read back and check each line of the song
+	address = startblock * (uint32_t) FLASH_PAGES_PER_BLOCK * (uint32_t) FLASH_PAGE_MAX_BYTES;
+	songline = 0;
+	while (amountRead < testLength)
 	{
-		spi_FlashMapAddress(address, &paddress, &baddress);
-		if (spi_FlashReadFromPage(paddress, baddress, buff, 16, false) == 16)
+		linelen = majorGeneral_get_line_len(songline);
+		if ((amountRead + linelen) > testLength)
+			break;
+		majorGeneral_get_line(songline++, (char *) buff2);
+		if (spi_FlashRead(address, buff,  linelen) == linelen)
 		{
-			buff[16] = 0;
-			printf("%s",buff);
-			address += 16;
-			spi_FlashReset();
+			buff[linelen] = 0;
+			if (strcmp((const char *) buff, (const char *) buff2) == 0)
+			{
+				printf("Read from addr 0x%08lx: PASS\n",address);
+				spi_FlashDisplayStatusRegister();			}
+			else
+			{
+				printf("Read from addr 0x%08lx: FAIL\n",address);
+				spi_FlashDisplayStatusRegister();				printf("%s\n%s\n",buff,buff2);
+			}
+			amountRead += linelen;
+			address += linelen;
+			if (songline >= majorGeneral_num_lines())
+				songline = 0;
 		}
 		else
 		{
-			printf("\nread failure at page 0x%08lx, baddr 0x%04x\n", paddress, baddress); 
+			printf("Error reading from addr 0x%08lx, line %d\n",address, songline);
+			amountRead += linelen;
+			address += linelen;
+			if (songline >= majorGeneral_num_lines())
+				songline = 0;
 		}
 	}
 }
@@ -297,7 +337,7 @@ void FlashABTest(void)
 {
 	// test write of A's to 0ne page, B's to next page
 	uint8_t buff[32];
-	uint16_t block = 5;
+	uint16_t block = test_block;
 	uint16_t bblock;
 	int i;
 	int j;
@@ -341,16 +381,36 @@ void FlashReadBlocksTest(void)
 {
 	// test write of A's to 0ne page, B's to next page
 	uint8_t buff[TEST_READ_SIZE];
-	uint32_t page = 0;
-	uint16_t bblock;
+	uint16_t block = test_block;
+	uint32_t page = block * FLASH_PAGES_PER_BLOCK;
 	int i;
 	int j;
-	int k;
 
+	printf("Native\n");
 	for (j=0; j<FLASH_PAGE_MAX_BYTES; j += TEST_READ_SIZE)
 	{
 		for( i=0; i<TEST_READ_SIZE; i++) buff[i] = (uint8_t) 0;
 		spi_FlashReadFromPage(page, j, buff, TEST_READ_SIZE, false);
+		printf("page 0x%08lx, addr 0x%04x: ", page, j);
+		for( i=0; i<TEST_READ_SIZE; i++) printf("%c",buff[i]);
+		printf("\n");		
+	}
+}
+
+void FlashReadBlocksTest_micron(void)
+{
+	// test write of A's to 0ne page, B's to next page
+	uint8_t buff[TEST_READ_SIZE];
+	uint16_t block = test_block;
+	uint32_t page = block * FLASH_PAGES_PER_BLOCK;
+	int i;
+	int j;
+
+	printf("Micron\n");
+	for (j=0; j<FLASH_PAGE_MAX_BYTES; j += TEST_READ_SIZE)
+	{
+		for( i=0; i<TEST_READ_SIZE; i++) buff[i] = (uint8_t) 0;
+		spi_FlashReadFromPage_micron(page, j, buff, TEST_READ_SIZE, false);
 		printf("page 0x%08lx, addr 0x%04x: ", page, j);
 		for( i=0; i<TEST_READ_SIZE; i++) printf("%c",buff[i]);
 		printf("\n");		
