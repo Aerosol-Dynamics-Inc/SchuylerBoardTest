@@ -97,6 +97,7 @@ void processCommand(void)
 			else if (  buf[1] == 'r' ) doFlashReadTest();
 			else if (  buf[1] == 'a' ) doFlashTestReadAll();
 			else if (  buf[1] == 'e' ) doFlashEraseTest();
+			else if (  buf[1] == 'B' ) doFlashMarkBlockBad();
 			else if (  buf[1] == 'u' ) spi_FlashUnlockAllBlocks();
 			else if (  buf[1] == 'f' ) spi_FlashDisplayFeatureRegisters();			
 			else if (  buf[1] == 's' ) spi_FlashDisplayStatusRegister();
@@ -107,6 +108,7 @@ void processCommand(void)
 			else if (  buf[1] == '2' ) FlashReadBlocksTest();
 			else if (  buf[1] == '3' ) FlashBasicTest();
 			else if (  buf[1] == '4' ) FlashReadBlocksTest_micron();
+			else if (  buf[1] == 'm' ) toggleMicron();
 /*			if (  buf[1] == 'w' )       getFlashStatusReister();
 			else if (  buf[1] == 'e' )  spi_FlashEnableWrite();
 			else if (  buf[1] == 'd' ) spi_FlashDisableWrite();
@@ -204,6 +206,14 @@ void doFlashEraseTest(void)
 	
 }
 
+void doFlashMarkBlockBad(void)
+{
+	if (spi_FlashMarkBlockBad(test_block))
+		printf("Block %d marked bad\n", test_block);
+	else
+		printf("Could't mark block %d bad\n", test_block);
+}
+
 #define FLASH_TEST_BUFF_SIZE 16
 
 
@@ -256,12 +266,21 @@ void printSong(void)
 	}
 }
 
+uint8_t useMicron = false;
+
+void toggleMicron()
+{
+	useMicron = !useMicron;
+	printf("useMicron = %d\n", useMicron);
+}
+
 void testRandomWR(void)
 {
 	// test swath of memory by writing song lyrics to continuous memory and reading
 	// them back and comparing 
 	uint8_t buff[MAJORGENERAL_LINE_MAX];
 	uint8_t buff2[MAJORGENERAL_LINE_MAX];
+	uint8_t retnum;
 	uint16_t startblock = test_block;
 	uint32_t testLength;
 	uint32_t address;
@@ -279,7 +298,11 @@ void testRandomWR(void)
 		if ((amountWritten + linelen) > testLength)
 			break;
 		majorGeneral_get_line(songline++, (char *) buff);
-		if (spi_FlashWrite(address, buff,  strlen((char *) buff)) == linelen)
+		if (useMicron)
+			retnum = spi_FlashWrite_micron(address, buff,  strlen((char *) buff));
+		else
+			retnum = spi_FlashWrite(address, buff,  strlen((char *) buff));
+		if (retnum == linelen)
 		{
 			printf("Wrote to to addr 0x%08lx: %s\n",address, (char *) buff);
 			spi_FlashDisplayStatusRegister();			amountWritten += linelen;
@@ -385,15 +408,25 @@ void FlashReadBlocksTest(void)
 	uint32_t page = block * FLASH_PAGES_PER_BLOCK;
 	int i;
 	int j;
+	int k;
+	int numpages = 2;
 
 	printf("Native\n");
-	for (j=0; j<FLASH_PAGE_MAX_BYTES; j += TEST_READ_SIZE)
+	for (k = 0; k < numpages; k++)
 	{
-		for( i=0; i<TEST_READ_SIZE; i++) buff[i] = (uint8_t) 0;
-		spi_FlashReadFromPage(page, j, buff, TEST_READ_SIZE, false);
-		printf("page 0x%08lx, addr 0x%04x: ", page, j);
-		for( i=0; i<TEST_READ_SIZE; i++) printf("%c",buff[i]);
-		printf("\n");		
+		page = (block * FLASH_PAGES_PER_BLOCK) + k;
+		for (j=0; j<FLASH_PAGE_MAX_BYTES; j += TEST_READ_SIZE)
+		{
+			for( i=0; i<TEST_READ_SIZE; i++) buff[i] = (uint8_t) 0;
+			spi_FlashReadFromPage(page, j, buff, TEST_READ_SIZE, false);
+			printf("page 0x%08lx, addr 0x%04x: ", page, j);
+			for( i=0; i<TEST_READ_SIZE; i++) 
+			{
+				printf("%c",buff[i]);
+			}
+			dumpBuffer(buff,TEST_READ_SIZE);
+			printf("\n");		
+		}
 	}
 }
 
@@ -419,9 +452,10 @@ void FlashReadBlocksTest_micron(void)
 
 void dumpBuffer(int8_t *buffer, uint8_t len)
 {
-	for( i=0; i<32; i++) printf(" %02x",buffer[i]);
+	for( i=0; i<len; i++) printf(" %x",(uint16_t) (buffer[i] & 0xff));
 	printf("\n");		
 }
+
 void FlashBasicTest(void)
 {
 	uint32_t page = 7;
