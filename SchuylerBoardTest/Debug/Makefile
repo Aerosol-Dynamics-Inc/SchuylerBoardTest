@@ -35,8 +35,7 @@ LINKER_SCRIPT_DEP:=
 SUBDIRS :=  \
 ../Drivers \
 ../Drivers/Include \
-../Commands \
-../Drivers/LowLevelFlashDriver/
+../Commands
 
 
 # Add inputs and outputs from these tool invocations to the build variables 
@@ -46,8 +45,6 @@ C_SRCS +=  \
 ../Drivers/ADC2518.c \
 ../Drivers/ADC_uC.c \
 ../Drivers/FETS.c \
-../Drivers/LowLevelFlashDriver/spi-nand-base.c \
-../Drivers/LowLevelFlashDriver/spi-nand-cmd.c \
 ../Drivers/NPA700.c \
 ../Drivers/RH_T.c \
 ../Drivers/spi_ADC2518.c \
@@ -78,8 +75,6 @@ CountersAndTimers.o \
 Drivers/ADC2518.o \
 Drivers/ADC_uC.o \
 Drivers/FETS.o \
-Drivers/LowLevelFlashDriver/spi-nand-base.o \
-Drivers/LowLevelFlashDriver/spi-nand-cmd.o \
 Drivers/NPA700.o \
 Drivers/RH_T.o \
 Drivers/spi_ADC2518.o \
@@ -103,8 +98,6 @@ CountersAndTimers.o \
 Drivers/ADC2518.o \
 Drivers/ADC_uC.o \
 Drivers/FETS.o \
-Drivers/LowLevelFlashDriver/spi-nand-base.o \
-Drivers/LowLevelFlashDriver/spi-nand-cmd.o \
 Drivers/NPA700.o \
 Drivers/RH_T.o \
 Drivers/spi_ADC2518.o \
@@ -128,8 +121,6 @@ CountersAndTimers.d \
 Drivers/ADC2518.d \
 Drivers/ADC_uC.d \
 Drivers/FETS.d \
-Drivers/LowLevelFlashDriver/spi-nand-base.d \
-Drivers/LowLevelFlashDriver/spi-nand-cmd.d \
 Drivers/NPA700.d \
 Drivers/RH_T.d \
 Drivers/spi_ADC2518.d \
@@ -153,8 +144,6 @@ CountersAndTimers.d \
 Drivers/ADC2518.d \
 Drivers/ADC_uC.d \
 Drivers/FETS.d \
-Drivers/LowLevelFlashDriver/spi-nand-base.d \
-Drivers/LowLevelFlashDriver/spi-nand-cmd.d \
 Drivers/NPA700.d \
 Drivers/RH_T.d \
 Drivers/spi_ADC2518.d \
@@ -215,20 +204,6 @@ Drivers/ADC_uC.o: ../Drivers/ADC_uC.c
 	
 
 Drivers/FETS.o: ../Drivers/FETS.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\2.0.401\include" -I".." -I"../Commands" -I"../Commands/Include" -I"../Drivers" -I"../Drivers/Include" -I"../Drivers/LowLevelFlashDriver"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\2.0.401\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-Drivers/LowLevelFlashDriver/spi-nand-base.o: ../Drivers/LowLevelFlashDriver/spi-nand-base.c
-	@echo Building file: $<
-	@echo Invoking: AVR/GNU C Compiler : 5.4.0
-	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\2.0.401\include" -I".." -I"../Commands" -I"../Commands/Include" -I"../Drivers" -I"../Drivers/Include" -I"../Drivers/LowLevelFlashDriver"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\2.0.401\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
-	@echo Finished building: $<
-	
-
-Drivers/LowLevelFlashDriver/spi-nand-cmd.o: ../Drivers/LowLevelFlashDriver/spi-nand-cmd.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\2.0.401\include" -I".." -I"../Commands" -I"../Commands/Include" -I"../Drivers" -I"../Drivers/Include" -I"../Drivers/LowLevelFlashDriver"  -Og -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega2560 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\2.0.401\gcc\dev\atmega2560" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

@@ -37,6 +37,8 @@ int main(void)
     {
 		doUart();    
 		if   (commandCompleteFlag0)  {
+
+
 			processCommand();
 			commandCompleteFlag0 = 0;   // processed complete command, can now process more characters. Needs to be after previous line, or new keys could be accepted before reseting those variables.
 		}
